@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($res) {
             session_start();
-            isset($_SESSION['signedIn']);
+            $_SESSION['signedIn'] = true;
             $_SESSION['uemail'] = $usrEmail;
             $_SESSION['uname'] = $usrName;
             header("Location: ../pages/main.php");

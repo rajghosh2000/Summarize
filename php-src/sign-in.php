@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = mysqli_fetch_assoc($res);
         if (password_verify($upwd, $row['password'])) {
             session_start();
-            isset($_SESSION['signedIn']);
+            $_SESSION['signedIn'] = true;
             $_SESSION['uemail'] = $uemail;
             $_SESSION['uname'] = $row['name'];
             header("Location: ../pages/main.php");

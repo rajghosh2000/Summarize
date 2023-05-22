@@ -1,8 +1,4 @@
 <?php
-    if(!isset($_SESSION['signedIn'])){
-        header("Location: ../pages/login.html");
-        exit();
-    }
     session_start();
     echo 'Logging You Out Please Wait';
     
