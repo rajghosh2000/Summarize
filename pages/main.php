@@ -12,16 +12,18 @@ session_start();
     <link rel="icon" href="../img/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 </head>
 
-<body class="flex flex-col h-screen justify-between">
+<body class="flex flex-col h-screen justify-between overflow-hidden">
 
     <header class="text-gray-600 body-font">
-        <div class="container mx-auto flex flex-wrap flex-col p-4 md:flex-row items-center">
+        <div class="container mx-auto flex flex-wrap flex-col p-2 md:flex-row items-center">
             <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="index.html">
                 <img class="bg-none h-20 w-48" src="../img/logo.png">
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+                <a class="mr-5 hover:text-gray-900 font-semibold" href="main.php">Your Network</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">About</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">Contact Us</a>
             </nav>
@@ -32,96 +34,148 @@ session_start();
                 }
                 ?>
             </a>
-            <button class="inline-flex items-center bg-green-600 border-0 py-1 px-3 focus:outline-none hover:bg-green-900 rounded text-base text-white font-semibold mt-4 mx-2 md:mt-0" onclick="window.location.href='../php-src/logout.php'">Logout
+            <button class="inline-flex items-center bg-green-600 border-0 py-1 px-3 focus:outline-none hover:bg-green-900 rounded text-base text-white font-semibold mt-4 mx-2 md:mt-0 shadow-2xl" onclick="window.location.href='../php-src/logout.php'">Logout
             </button>
         </div>
     </header>
     <section class="text-gray-600 body-font">
-        <div class="container px-5 py-2 mx-auto flex flex-wrap items-center">
-            <div class="lg:w-2/6 w-full bg-gray-100 rounded-lg p-8 flex flex-col">
-                <h2 class="text-gray-900 text-lg font-medium title-font mb-5 text-center">Account Details</h2>
-                
+        <div class="container px-5 mx-auto">
+            <div class="flex flex-wrap w-full">
+                <div class="lg:w-5/6 w-full lg:mb-0 text-center">
+                    <h1 class="sm:text-3xl text-2xl font-bold title-font font-mono mb-2 text-gray-900">Your Network</h1>
+                </div>
+                <button class="lg:w-1/10 flex mx-auto text-black bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg font-bold title-font font-mono shadow-2xl" onclick="window.location.href='section.php'">
+                    <i class="fa fa-fan text-md text-black px-2 py-1 animate-spin"></i>
+                    New Section
+                </button>
             </div>
-            <div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0 flex flex-wrap -m-4 md:ml-auto w-full mt-10 md:mt-0 ">
-                <div class="xl:w-1/2 md:w-1/2 p-4">
-                    <div class="border border-gray-200 p-6 rounded-lg">
-                        <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-green-600 mb-4">
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                            </svg>
-                        </div>
-                        <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Shooting Stars</h2>
-                        <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-                    </div>
-                </div>
-                <div class="xl:w-1/2 md:w-1/2 p-4">
-                    <div class="border border-gray-200 p-6 rounded-lg">
-                        <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-green-600 mb-4">
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                                <circle cx="6" cy="6" r="3"></circle>
-                                <circle cx="6" cy="18" r="3"></circle>
-                                <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
-                            </svg>
-                        </div>
-                        <h2 class="text-lg text-gray-900 font-medium title-font mb-2">The Catalyzer</h2>
-                        <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-                    </div>
-                </div>
-                <div class="xl:w-1/2 md:w-1/2 p-4">
-                    <div class="border border-gray-200 p-6 rounded-lg">
-                        <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-green-600 mb-4">
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                        </div>
-                        <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Neptune</h2>
-                        <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-                    </div>
-                </div>
-                <div class="xl:w-1/2 md:w-1/2 p-4">
-                    <div class="border border-gray-200 p-6 rounded-lg">
-                        <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-green-600 mb-4">
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"></path>
-                            </svg>
-                        </div>
-                        <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Melanchole</h2>
-                        <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-                    </div>
-                </div>
-                <div class="xl:w-1/2 md:w-1/2 p-4">
-                    <div class="border border-gray-200 p-6 rounded-lg">
-                        <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-green-600 mb-4">
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-                            </svg>
-                        </div>
-                        <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Bunker</h2>
-                        <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-                    </div>
-                </div>
-                <div class="xl:w-1/2 md:w-1/2 p-4">
-                    <div class="border border-gray-200 p-6 rounded-lg">
-                        <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-green-600 mb-4">
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            </svg>
-                        </div>
-                        <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Ramona Falls</h2>
-                        <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
+    <section class="text-gray-600 body-font overflow-auto font-mono">
+        <div class="container px-5 py-5 mx-auto">
+            <div class="flex flex-wrap -m-1">
+                <div class="p-6 md:w-1/3">
+                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                                <i class="fa-brands fa-html5 text-black fa-flip"></i>
+                            </div>
+                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 md:w-1/3">
+                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                                <i class="fa-solid fa-pen-nib text-black fa-flip"></i>
+                            </div>
+                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 md:w-1/3">
+                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                                <i class="fa-regular fa-comment text-black fa-bounce"></i>
+                            </div>
+                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 md:w-1/3">
+                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                                <i class="fa-solid fa-terminal text-black fa-flip"></i>
+                            </div>
+                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 md:w-1/3">
+                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                                <i class="fa-solid fa-laptop text-black fa-beat-fade"></i>
+                            </div>
+                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 md:w-1/3">
+                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                                <i class="fa-solid fa-flask-vial text-black fa-beat-fade"></i>
+                            </div>
+                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <button onclick="buttonHandler()" title="Add New Paper" class="fixed z-90 bottom-14 right-8 bg-transperant w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl lg:hover:bg-green-400 md:hover:bg-green-400 hover:drop-shadow-2xl hover:animate-bounce duration-300">
+        <img src="../img/plus.png" class="h-16 w-16" />
+    </button>
+
     <footer class="text-gray-600 body-font">
-        <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+        <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
             <a class="flex title-font font-medium items-center text-gray-900 md:mb-0">
-                <img class="bg-none h-10 w-28" src="../img/logo.png">
+                <img class="bg-none h-6 w-20" src="../img/logo.png">
             </a>
-            <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">©
+            <p class="text-xs text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">©
                 2023 Summarize —
                 <a href="https://www.linkedin.com/in/rajdeep-ghosh-301082175/" class="font-semibold text-green-300 ml-1 hover:text-green-900" rel="noopener noreferrer" target="_blank">@rajdeep</a>
             </p>
@@ -155,6 +209,11 @@ session_start();
     </footer>
 
 </body>
-
+<script>
+    // Do something when the button is clicked
+    function buttonHandler() {
+        alert('Hi there!');
+    }
+</script>
 
 </html>
