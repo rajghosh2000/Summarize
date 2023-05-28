@@ -56,118 +56,75 @@ session_start();
     <section class="text-gray-600 body-font overflow-auto font-mono">
         <div class="container px-5 py-5 mx-auto">
             <div class="flex flex-wrap -m-1">
-                <div class="p-6 md:w-1/3">
-                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
-                        <div class="flex items-center mb-3">
-                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
-                                <i class="fa-brands fa-html5 text-black fa-flip"></i>
+
+                <?php
+                include '../php-src/db/db_connect.php';
+                $uemail = $_SESSION['uemail'];
+                $sql = "SELECT * FROM `section` WHERE `uemail` = '$uemail'";
+                $res = mysqli_query($con, $sql);
+                $numRows = mysqli_num_rows($res);
+
+                if ($numRows > 0) {
+                    while ($row = mysqli_fetch_assoc($res)) {
+                        echo '
+                        <div class="p-6 md:w-1/3">
+                            <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">';
+
+                        switch ($row['sec_icon']) {
+                            case "Development":
+                                echo '<i class="fa-brands fa-html5 text-black fa-flip"></i>';
+                                break;
+                            case "Coding":
+                                echo '<i class="fa-solid fa-terminal text-black fa-flip"></i>';
+                                break;
+                            case "Research Writings":
+                                echo '<i class="fa-solid fa-pen-nib text-black fa-flip"></i>';
+                                break;
+                            case "Social":
+                                echo '<i class="fa-regular fa-comment text-black fa-bounce"></i>';
+                                break;
+                            case "Hardware":
+                                echo 'fa-solid fa-laptop text-black fa-beat-fade';
+                                break;
+                            case "Technology":
+                                echo '<i class="fa-solid fa-flask-vial text-black fa-beat-fade"></i>';
+                                break;
+                        }
+
+                        echo '
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h2 class="text-gray-900 text-lg title-font font-bold">' . $row['sec_name'] . '</h2>
+                                        <h2 class="text-gray-900 text-xs">Section : ' . $row['sec_icon'] . '</h2>
+                                    </div>
+                                </div>
+                                <div class="flex-grow">';
+                        if (strlen($row['sec_info']) > 70) {
+                            echo '<p class="leading-relaxed text-base">' . substr($row['sec_info'], 0, 70) . '....</p>';
+                        } else {
+                            echo '<p class="leading-relaxed text-base">' . substr($row['sec_info'], 0, 70) . '</p>';
+                        }
+                        echo '
+                                    
+                                    <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
-                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
                         </div>
-                        <div class="flex-grow">
-                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6 md:w-1/3">
-                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
-                        <div class="flex items-center mb-3">
-                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
-                                <i class="fa-solid fa-pen-nib text-black fa-flip"></i>
-                            </div>
-                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
-                        </div>
-                        <div class="flex-grow">
-                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6 md:w-1/3">
-                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
-                        <div class="flex items-center mb-3">
-                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
-                                <i class="fa-regular fa-comment text-black fa-bounce"></i>
-                            </div>
-                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
-                        </div>
-                        <div class="flex-grow">
-                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6 md:w-1/3">
-                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
-                        <div class="flex items-center mb-3">
-                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
-                                <i class="fa-solid fa-terminal text-black fa-flip"></i>
-                            </div>
-                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
-                        </div>
-                        <div class="flex-grow">
-                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6 md:w-1/3">
-                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
-                        <div class="flex items-center mb-3">
-                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
-                                <i class="fa-solid fa-laptop text-black fa-beat-fade"></i>
-                            </div>
-                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
-                        </div>
-                        <div class="flex-grow">
-                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-6 md:w-1/3">
-                    <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
-                        <div class="flex items-center mb-3">
-                            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
-                                <i class="fa-solid fa-flask-vial text-black fa-beat-fade"></i>
-                            </div>
-                            <h2 class="text-gray-900 text-lg title-font font-bold">Shooting Stars</h2>
-                        </div>
-                        <div class="flex-grow">
-                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                            <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                        ';
+                    }
+                } else {
+                }
+                ?>
             </div>
         </div>
     </section>
-                
+
     <a href="newPaper.php" title="Add New Paper" class="fixed z-90 bottom-14 right-8 bg-transperant w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl lg:hover:bg-green-400 md:hover:bg-green-400 hover:drop-shadow-2xl hover:animate-bounce duration-300">
         <img src="../img/plus.png" class="h-16 w-16" />
     </a>
