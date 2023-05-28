@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+session_start();
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,11 +36,11 @@
                 <a class="mr-5 hover:text-gray-900 font-semibold">Contact Us</a>
             </nav>
             <a class="mr-5 text-green-600 hover:text-gray-900 font-semibold" href="#">
-                <script>
-                    var currentURL = window.location.href; //Gets the content of address bar
-                    var findUser = currentURL.search("user=");
-                    document.write(currentURL.substring(findUser + 5, currentURL.length));
-                </script>
+                <?php
+                if (isset($_SESSION['signedIn']) && $_SESSION['signedIn'] == true) {
+                    echo $_SESSION['uemail'];
+                }
+                ?>
             </a>
             <button class="inline-flex items-center bg-green-600 border-0 py-1 px-3 focus:outline-none hover:bg-green-900 rounded text-base text-white font-semibold mt-4 mx-2 md:mt-0 shadow-2xl" onclick="window.location.href='../php-src/logout.php'">Logout
             </button>

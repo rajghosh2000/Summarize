@@ -167,12 +167,10 @@ session_start();
             </div>
         </div>
     </section>
-    <?php
-    echo '            
-    <a href="paper.php?user=' . $_SESSION['uemail'] . '" title="Add New Paper" class="fixed z-90 bottom-14 right-8 bg-transperant w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl lg:hover:bg-green-400 md:hover:bg-green-400 hover:drop-shadow-2xl hover:animate-bounce duration-300">
+                
+    <a href="newPaper.php" title="Add New Paper" class="fixed z-90 bottom-14 right-8 bg-transperant w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl lg:hover:bg-green-400 md:hover:bg-green-400 hover:drop-shadow-2xl hover:animate-bounce duration-300">
         <img src="../img/plus.png" class="h-16 w-16" />
-    </a>';
-    ?>
+    </a>
 
     <footer class="text-gray-600 body-font">
         <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
@@ -213,11 +211,5 @@ session_start();
     </footer>
 
 </body>
-<script>
-    // Do something when the button is clicked
-    function buttonHandler() {
-        alert('Hi there!');
-    }
-</script>
 
 </html>
