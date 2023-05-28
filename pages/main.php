@@ -55,45 +55,44 @@ session_start();
     </section>
     <section class="text-gray-600 body-font overflow-auto font-mono">
         <div class="container px-5 py-5 mx-auto">
-            <div class="flex flex-wrap -m-1">
+            <?php
+            include '../php-src/db/db_connect.php';
+            $uemail = $_SESSION['uemail'];
+            $sql = "SELECT * FROM `section` WHERE `uemail` = '$uemail'";
+            $res = mysqli_query($con, $sql);
+            $numRows = mysqli_num_rows($res);
 
-                <?php
-                include '../php-src/db/db_connect.php';
-                $uemail = $_SESSION['uemail'];
-                $sql = "SELECT * FROM `section` WHERE `uemail` = '$uemail'";
-                $res = mysqli_query($con, $sql);
-                $numRows = mysqli_num_rows($res);
+            if ($numRows > 0) {
+                while ($row = mysqli_fetch_assoc($res)) {
+                    echo '
+                        <div class="flex flex-wrap -m-1">
+                            <div class="p-6 md:w-1/3">
+                                <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">';
 
-                if ($numRows > 0) {
-                    while ($row = mysqli_fetch_assoc($res)) {
-                        echo '
-                        <div class="p-6 md:w-1/3">
-                            <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
-                                <div class="flex items-center mb-3">
-                                    <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">';
+                    switch ($row['sec_icon']) {
+                        case "Development":
+                            echo '<i class="fa-brands fa-html5 text-black fa-flip"></i>';
+                            break;
+                        case "Coding":
+                            echo '<i class="fa-solid fa-terminal text-black fa-flip"></i>';
+                            break;
+                        case "Research Writings":
+                            echo '<i class="fa-solid fa-pen-nib text-black fa-flip"></i>';
+                            break;
+                        case "Social":
+                            echo '<i class="fa-regular fa-comment text-black fa-bounce"></i>';
+                            break;
+                        case "Hardware":
+                            echo 'fa-solid fa-laptop text-black fa-beat-fade';
+                            break;
+                        case "Technology":
+                            echo '<i class="fa-solid fa-flask-vial text-black fa-beat-fade"></i>';
+                            break;
+                    }
 
-                        switch ($row['sec_icon']) {
-                            case "Development":
-                                echo '<i class="fa-brands fa-html5 text-black fa-flip"></i>';
-                                break;
-                            case "Coding":
-                                echo '<i class="fa-solid fa-terminal text-black fa-flip"></i>';
-                                break;
-                            case "Research Writings":
-                                echo '<i class="fa-solid fa-pen-nib text-black fa-flip"></i>';
-                                break;
-                            case "Social":
-                                echo '<i class="fa-regular fa-comment text-black fa-bounce"></i>';
-                                break;
-                            case "Hardware":
-                                echo 'fa-solid fa-laptop text-black fa-beat-fade';
-                                break;
-                            case "Technology":
-                                echo '<i class="fa-solid fa-flask-vial text-black fa-beat-fade"></i>';
-                                break;
-                        }
-
-                        echo '
+                    echo '
                                     </div>
                                     <div class="flex flex-col">
                                         <h2 class="text-gray-900 text-lg title-font font-bold">' . $row['sec_name'] . '</h2>
@@ -101,27 +100,37 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="flex-grow">';
-                        if (strlen($row['sec_info']) > 70) {
-                            echo '<p class="leading-relaxed text-base">' . substr($row['sec_info'], 0, 70) . '....</p>';
-                        } else {
-                            echo '<p class="leading-relaxed text-base">' . substr($row['sec_info'], 0, 70) . '</p>';
-                        }
-                        echo '
+                    if (strlen($row['sec_info']) > 70) {
+                        echo '<p class="leading-relaxed text-base">' . substr($row['sec_info'], 0, 70) . '....</p>';
+                    } else {
+                        echo '<p class="leading-relaxed text-base">' . substr($row['sec_info'], 0, 70) . '</p>';
+                    }
+                    echo '
                                     
-                                    <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
-                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                        </svg>
-                                    </a>
+                                        <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
+                                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         ';
-                    }
-                } else {
                 }
-                ?>
-            </div>
+            } else {
+                echo '
+                        <div class="flex items-center justify-center flex-col">
+                            <img class="lg:w-2/6 md:w-3/6 w-5/6 object-contain object-center rounded h-72" alt="hero" src="../img/no-data.png">
+                            <div class="text-center lg:w-2/3 w-full">
+                                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">NO DATA YET!!! ADD THE FIRST SECTION HERE</h1>
+                            <div class="flex justify-center">
+                                <a type="button" class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" href="section.html?user=' . $_SESSION['uemail'] . '">New Section</a>
+                            </div>
+                        </div>
+                    ';
+            }
+            ?>
         </div>
     </section>
 
