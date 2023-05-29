@@ -62,10 +62,12 @@ session_start();
             $res = mysqli_query($con, $sql);
             $numRows = mysqli_num_rows($res);
 
+
             if ($numRows > 0) {
+                echo'<div class="flex flex-wrap -m-1">';
                 while ($row = mysqli_fetch_assoc($res)) {
                     echo '
-                        <div class="flex flex-wrap -m-1">
+                        
                             <div class="p-6 md:w-1/3">
                                 <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
                                     <div class="flex items-center mb-3">
@@ -115,9 +117,9 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         ';
                 }
+                echo '</div>';
             } else {
                 echo '
                         <div class="flex items-center justify-center flex-col">
