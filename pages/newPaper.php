@@ -23,7 +23,7 @@ session_start();
 
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap flex-col p-2 md:flex-row items-center">
-            <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="index.html">
+            <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="main.php">
                 <img class="bg-none h-20 w-48" src="../img/logo.png">
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
@@ -50,41 +50,59 @@ session_start();
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="name" class="leading-7 text-sm text-gray-600">Paper Name</label>
-                            <input type="text" id="name" name="name" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="name" name="name" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="name" class="leading-7 text-sm text-gray-600">Author's Name</label>
-                            <input type="text" id="name" name="name" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="name" name="name" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 lg:w-1/2 w-full">
                         <div class="relative">
                             <label for="name" class="leading-7 text-sm text-gray-600">Year of Publication</label>
-                            <input type="text" id="name" name="name" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="name" name="name" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 lg:w-1/2 w-full">
                         <div class="relative">
                             <label for="email" class="leading-7 text-sm text-gray-600">Publisher</label>
-                            <input type="email" id="email" name="email" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="email" id="email" name="email" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 lg:w-1/2 w-full">
                         <div class="relative">
                             <label for="name" class="leading-7 text-sm text-gray-600">DOI</label>
-                            <input type="text" id="name" name="name" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="name" name="name" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 lg:w-1/2 w-full">
                         <div class="relative">
                             <label for="email" class="leading-7 text-sm text-gray-600">Upload Paper</label>
-                            <input type="file" id="email" name="email" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="file" id="email" name="email" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 w-full">
-                        <button class="flex mx-auto text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Button</button>
+                        <div class="relative flex flex-col">
+                            <label for="name" class="leading-7 text-sm text-gray-600">Select Section</label>
+                            <select id="search-type" name="search-type" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <?php
+                                include '../php-src/db/db_connect.php';
+                                $uemail = $_SESSION['uemail'];
+                                $sql = "SELECT `sec_icon` FROM `section` WHERE `uemail` = '$uemail'";
+                                $res = mysqli_query($con, $sql);
+                                $numRows = mysqli_num_rows($res);
+
+
+                                if ($numRows > 0) {
+                                    while ($row = mysqli_fetch_assoc($res)) {
+                                        echo '<option value="' . $row['sec_icon'] . '">' . $row['sec_icon'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>

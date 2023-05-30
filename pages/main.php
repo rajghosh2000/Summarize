@@ -19,7 +19,7 @@ session_start();
 
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap flex-col p-2 md:flex-row items-center">
-            <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="index.html">
+            <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="main.php">
                 <img class="bg-none h-20 w-48" src="../img/logo.png">
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
@@ -92,6 +92,8 @@ session_start();
                         case "Technology":
                             echo '<i class="fa-solid fa-flask-vial text-black fa-beat-fade"></i>';
                             break;
+                        default:
+                            echo '<i class="fa-solid fa-snowflake fa-spin text-black"></i>';
                     }
 
                     echo '
@@ -109,7 +111,7 @@ session_start();
                     }
                     echo '
                                     
-                                        <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Learn More
+                                        <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Explore
                                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
                                             </svg>
@@ -136,7 +138,7 @@ session_start();
         </div>
     </section>
 
-    <a href="newPaper.php" title="Add New Paper" class="fixed z-90 bottom-14 right-8 bg-transperant w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl lg:hover:bg-green-400 md:hover:bg-green-400 hover:drop-shadow-2xl hover:animate-bounce duration-300">
+    <a href="paper.php" title="Add New Paper" class="fixed z-90 bottom-14 right-8 bg-transperant w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl lg:hover:bg-green-400 md:hover:bg-green-400 hover:drop-shadow-2xl hover:animate-bounce duration-300">
         <img src="../img/plus.png" class="h-16 w-16" />
     </a>
 

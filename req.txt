@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/34070619/fetch-content-of-google-scholar-page-with-php

@@ -27,7 +27,7 @@ session_start();
 
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap flex-col p-2 md:flex-row items-center">
-            <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="../index.html">
+            <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="main.php">
                 <img class="bg-none h-20 w-48" src="../img/logo.png">
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
@@ -67,7 +67,7 @@ session_start();
                                 </select>
                             </div>
                         </div>
-                        <div class="flex flex-col ml-6 my-2 w-full">
+                        <div class="flex flex-col my-2 w-full">
                             <button class="flex mx-auto text-black font-bold bg-green-500 border-0 py-2 px-8 hover:bg-green-600 rounded text-lg">
                                 <i class="fa-solid fa-magnifying-glass text-md text-black px-2 py-1"></i>
                                 Search
