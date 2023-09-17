@@ -88,7 +88,7 @@ if (!isset($_SESSION['signedIn'])) {
 
     <?php
     if (isset($_POST['submit'])) {
-        include('../php-src/paperSearchApi.php');
+        include('../api/paperSearchApi.php');
         $search_paper_text = $_POST['pname'];
         $res = json_decode(paperSearchByName($search_paper_text));
         if ($res->Status) {
