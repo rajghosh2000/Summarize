@@ -66,26 +66,14 @@ if (!isset($_SESSION['signedIn'])) {
                     <div class="border border-green-500 p-2 rounded-lg h-auto">
                         <div class="w-3/4 mx-auto">
                             <form class="flex flex-wrap mx-auto my-1" method="post" action="">
-                                <div class="p-2 w-3/4">
+                                <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="name" class="leading-7 text-base text-gray-600 font-bold">Search Name</label>
-                                        <input type="text" id="name" name="name" class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                    </div>
-                                </div>
-                                <div class="p-2 w-1/4">
-                                    <div class="relative">
-                                        <label for="name" class="leading-7 text-base text-gray-600 font-bold">Publisher</label>
-                                        <select id="psec" name="psec" class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-gray-700 font-semibold py-3 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            <option value="ieee">IEEE</option>
-                                            <option value="acm">ACM</option>
-                                            <option value="elsevier">Elsevier</option>
-                                            <option value="springer">Springer</option>
-                                            <option value="arxiv">arXiv</option>
-                                        </select>
+                                        <label for="pname" class="leading-7 text-base text-gray-600 font-bold">Search Name</label>
+                                        <input type="text" id="pname" name="pname" class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
-                                    <button class="flex mx-auto text-white bg-green-600 border-2 border-green-900 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-base font-semibold">
+                                    <button class="flex mx-auto text-white bg-green-600 border-2 border-green-900 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-base font-semibold" name="submit" value="submit">
                                         Search
                                         <i class="fa-brands fa-searchengin text-base font-semibold text-white px-4 py-1"></i>
                                     </button>
@@ -98,65 +86,58 @@ if (!isset($_SESSION['signedIn'])) {
         </div>
     </section>
 
-    <section class="text-gray-600 body-font overflow-hidden">
-        <div class="container px-5 py-1 mx-auto">
-            <div class="flex flex-col text-center w-full mb-5">
-                <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">Results Found</h1>
-            </div>
-        </div>
-    </section>
+    <?php
+    if (isset($_POST['submit'])) {
+        include('../php-src/paperSearchApi.php');
+        $search_paper_text = $_POST['pname'];
+        $res = json_decode(paperSearchByName($search_paper_text));
+        if ($res->Status) {
+    ?>
+            <section class="text-gray-600 body-font overflow-hidden">
+                <div class="container px-5 py-1 mx-auto">
+                    <div class="flex flex-col text-center w-full mb-5">
+                        <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">Results Found</h1>
+                    </div>
+                </div>
+            </section>
 
-    <section class="text-gray-600 body-font overflow-auto">
-        <div class="container px-5 py-4 mx-auto">
-            <div class="-my-8 divide-y-2 divide-gray-100">
-                <div class="py-8 flex flex-wrap md:flex-nowrap">
-                    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                        <span class="font-semibold title-font text-gray-700">CATEGORY</span>
-                        <span class="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
-                    </div>
-                    <div class="md:flex-grow">
-                        <h2 class="text-xl font-medium text-gray-900 title-font mb-2">Bitters hashtag waistcoat fashion axe chia unicorn</h2>
-                        <a class="text-green-500 inline-flex items-center mt-4">Learn More
-                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12h14"></path>
-                                <path d="M12 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="py-8 flex flex-wrap md:flex-nowrap">
-                    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                        <span class="font-semibold title-font text-gray-700">CATEGORY</span>
-                        <span class="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
-                    </div>
-                    <div class="md:flex-grow">
-                        <h2 class="text-xl font-medium text-gray-900 title-font mb-2">Meditation bushwick direct trade taxidermy shaman</h2>
-                        <a class="text-green-500 inline-flex items-center mt-4">Learn More
-                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12h14"></path>
-                                <path d="M12 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
+            <section class="text-gray-600 body-font overflow-auto">
+                <div class="container px-5 py-8 mx-auto">
+                    <div class="-my-8 divide-y-2 divide-gray-100">
+                        <div class="py-8 flex flex-wrap md:flex-nowrap">
+                            <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                                <span class="font-semibold title-font text-gray-700"><?php echo $res->Publisher; ?></span>
+                                <span class="mt-1 text-gray-500 text-sm"><?php echo $res->Year; ?></span>
+                            </div>
+                            <div class="md:flex-grow">
+                                <h2 class="text-xl font-medium text-gray-900 title-font mb-2"><?php echo $res->Title; ?></h2>
+                                <a class="text-green-500 inline-flex items-center mt-4" href="newPaper.php?Title=<?php echo $res->Title; ?>">Learn More
+                                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14"></path>
+                                        <path d="M12 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="py-8 flex flex-wrap md:flex-nowrap">
-                    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                        <span class="font-semibold title-font text-gray-700">CATEGORY</span>
-                        <span class="text-sm text-gray-500">12 Jun 2019</span>
-                    </div>
-                    <div class="md:flex-grow">
-                        <h2 class="text-xl font-medium text-gray-900 title-font mb-2">Woke master cleanse drinking vinegar salvia</h2>
-                        <a class="text-green-500 inline-flex items-center mt-4">Learn More
-                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12h14"></path>
-                                <path d="M12 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
+            </section>
+        <?php
+        } else {
+        ?>
+            <section class="text-gray-600 body-font overflow-hidden">
+                <div class="container px-5 py-1 mx-auto">
+                    <div class="flex flex-col text-center w-full mb-5">
+                        <h1 class="text-4xl font-medium title-font mb-4 text-gray-900">Results Not Found</h1>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
+    <?php
+        }
+    }
+    ?>
+
+
 
     <footer class="text-gray-600 body-font">
         <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
