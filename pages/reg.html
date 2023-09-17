@@ -9,8 +9,14 @@
     <link rel="icon" href="../img/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-    </style>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript">
+        function preventBack(){
+            window.history.forward()
+        };
+        setTimeout("preventBack()",0);
+        window.onunload=function(){null;}
+    </script>
 </head>
 
 <body class="flex flex-col h-screen justify-between">
@@ -48,14 +54,14 @@
                         <div class="relative">
                             <label for="name" class="leading-7 text-lg text-gray-600 font-bold">Name</label>
                             <input type="text" id="name" name="name"
-                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
                         </div>
                     </div>
                     <div class="p-2 lg:w-1/2">
                         <div class="relative">
                             <label for="name" class="leading-7 text-lg text-gray-600 font-bold">Email</label>
                             <input type="email" id="uemail" name="uemail"
-                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
                         </div>
                     </div>
                 </div>
@@ -64,14 +70,14 @@
                         <div class="relative">
                             <label for="name" class="leading-7 text-lg text-gray-600 font-bold">Date of Birth</label>
                             <input type="date" id="dob" name="dob"
-                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
                         </div>
                     </div>
                     <div class="p-2 lg:w-1/2">
                         <div class="relative">
                             <label for="name" class="leading-7 text-lg text-gray-600 font-bold">Country</label>
                             <input type="text" id="country" name="country"
-                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
                         </div>
                     </div>
                 </div>
@@ -80,14 +86,14 @@
                         <div class="relative">
                             <label for="name" class="leading-7 text-lg text-gray-600 font-bold">Password</label>
                             <input type="password" id="upwd" name="upwd"
-                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
                         </div>
                     </div>
                     <div class="p-2 lg:w-1/2">
                         <div class="relative">
                             <label for="name" class="leading-7 text-lg text-gray-600 font-bold">Confirm Password</label>
                             <input type="password" id="cpwd" name="cpwd"
-                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
                         </div>
                     </div>
                 </div>

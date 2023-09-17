@@ -3,6 +3,10 @@
 
 <?php
 session_start();
+if (!isset($_SESSION['signedIn'])) {
+    header("Location: login.html");
+    exit();
+}
 ?>
 
 <head>
@@ -47,91 +51,110 @@ session_start();
         </div>
     </header>
 
-    <section class="text-gray-600 body-font">
+    <section class="text-gray-600 body-font overflow-hidden">
         <div class="container px-5 mx-auto">
-            <div class="mx-auto flex flex-col">
-                <img alt="ecommerce" class="lg:w-1/6 w-full h-24 object-contain rounded mx-auto" src="../img/paper.png">
-                <div class="w-1/2 font-mono rounded-2xl px-8 flex flex-col my-2 mx-auto">
-                    <form class="flex mt-6 items-center flex flex-col">
-                        <div class="flex flex-row w-full my-2">
-                            <div class="flex flex-col ml-3 w-3/5">
-                                <span class="mr-3 font-bold">Paper Search</span>
-                                <input type="text" id="search-name" name="search-name" class="w-full bg-white rounded-lg border-green-500 border-2 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-bold">
-                            </div>
-                            <div class="flex flex-col ml-3 w-2/5">
-                                <span class="mr-3 font-bold">Search Type</span>
-                                <select id="search-type" name="search-type" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-r-lg border-l-gray-100 dark:border-l-gray-700 border-l-2 w-1/2 py-3 px-3">
-                                    <option value="doi">DOI</option>
-                                    <option value="nameofpaper">Name</option>
-                                    <option value="authorname">Author</option>
-                                </select>
-                            </div>
+            <div class="flex flex-col text-center w-full mb-4">
+                <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">PAPER SEARCH</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-2 mx-auto">
+            <div class="flex flex-wrap -m-4">
+                <div class="w-full p-4">
+                    <div class="border border-green-500 p-2 rounded-lg h-auto">
+                        <div class="w-3/4 mx-auto">
+                            <form class="flex flex-wrap mx-auto my-1" method="post" action="">
+                                <div class="p-2 w-3/4">
+                                    <div class="relative">
+                                        <label for="name" class="leading-7 text-base text-gray-600 font-bold">Search Name</label>
+                                        <input type="text" id="name" name="name" class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-gray-700 font-semibold py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    </div>
+                                </div>
+                                <div class="p-2 w-1/4">
+                                    <div class="relative">
+                                        <label for="name" class="leading-7 text-base text-gray-600 font-bold">Publisher</label>
+                                        <select id="psec" name="psec" class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-gray-700 font-semibold py-3 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            <option value="ieee">IEEE</option>
+                                            <option value="acm">ACM</option>
+                                            <option value="elsevier">Elsevier</option>
+                                            <option value="springer">Springer</option>
+                                            <option value="arxiv">arXiv</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full">
+                                    <button class="flex mx-auto text-white bg-green-600 border-2 border-green-900 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-base font-semibold">
+                                        Search
+                                        <i class="fa-brands fa-searchengin text-base font-semibold text-white px-4 py-1"></i>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="flex flex-col my-2 w-full">
-                            <button class="flex mx-auto text-black font-bold bg-green-500 border-0 py-2 px-8 hover:bg-green-600 rounded text-lg">
-                                <i class="fa-solid fa-magnifying-glass text-md text-black px-2 py-1"></i>
-                                Search
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="text-gray-600 body-font">
-        <div class="container px-5 py-2 mx-auto">
-            <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
-                <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="sm:w-16 sm:h-16 w-10 h-10" viewBox="0 0 24 24">
-                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                    </svg>
+
+    <section class="text-gray-600 body-font overflow-hidden">
+        <div class="container px-5 py-1 mx-auto">
+            <div class="flex flex-col text-center w-full mb-5">
+                <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">Results Found</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-gray-600 body-font overflow-auto">
+        <div class="container px-5 py-4 mx-auto">
+            <div class="-my-8 divide-y-2 divide-gray-100">
+                <div class="py-8 flex flex-wrap md:flex-nowrap">
+                    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                        <span class="font-semibold title-font text-gray-700">CATEGORY</span>
+                        <span class="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
+                    </div>
+                    <div class="md:flex-grow">
+                        <h2 class="text-xl font-medium text-gray-900 title-font mb-2">Bitters hashtag waistcoat fashion axe chia unicorn</h2>
+                        <a class="text-green-500 inline-flex items-center mt-4">Learn More
+                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"></path>
+                                <path d="M12 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-                <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Shooting Stars</h2>
-                    <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                    <a class="mt-3 text-green-500 inline-flex items-center">Learn More
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
+                <div class="py-8 flex flex-wrap md:flex-nowrap">
+                    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                        <span class="font-semibold title-font text-gray-700">CATEGORY</span>
+                        <span class="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
+                    </div>
+                    <div class="md:flex-grow">
+                        <h2 class="text-xl font-medium text-gray-900 title-font mb-2">Meditation bushwick direct trade taxidermy shaman</h2>
+                        <a class="text-green-500 inline-flex items-center mt-4">Learn More
+                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"></path>
+                                <path d="M12 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="py-8 flex flex-wrap md:flex-nowrap">
+                    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                        <span class="font-semibold title-font text-gray-700">CATEGORY</span>
+                        <span class="text-sm text-gray-500">12 Jun 2019</span>
+                    </div>
+                    <div class="md:flex-grow">
+                        <h2 class="text-xl font-medium text-gray-900 title-font mb-2">Woke master cleanse drinking vinegar salvia</h2>
+                        <a class="text-green-500 inline-flex items-center mt-4">Learn More
+                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"></path>
+                                <path d="M12 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
-                <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-2">The Catalyzer</h2>
-                    <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                    <a class="mt-3 text-green-500 inline-flex items-center">Learn More
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-                <div class="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="sm:w-16 sm:h-16 w-10 h-10" viewBox="0 0 24 24">
-                        <circle cx="6" cy="6" r="3"></circle>
-                        <circle cx="6" cy="18" r="3"></circle>
-                        <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
-                    </svg>
-                </div>
-            </div>
-            <div class="flex items-center lg:w-3/5 mx-auto sm:flex-row flex-col">
-                <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="sm:w-16 sm:h-16 w-10 h-10" viewBox="0 0 24 24">
-                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                </div>
-                <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-2">The 400 Blows</h2>
-                    <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                    <a class="mt-3 text-green-500 inline-flex items-center">Learn More
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <button class="flex mx-auto mt-20 text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Button</button>
         </div>
     </section>
 

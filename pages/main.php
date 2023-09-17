@@ -2,6 +2,10 @@
 <html lang="en">
 <?php
 session_start();
+if (!isset($_SESSION['signedIn'])) {
+    header("Location: login.html");
+    exit();
+}
 ?>
 
 <head>
@@ -13,6 +17,13 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script type="text/javascript">
+        function preventBack(){
+            window.history.forward()
+        };
+        setTimeout("preventBack()",0);
+        window.onunload=function(){null;}
+    </script>
 </head>
 
 <body class="flex flex-col h-screen justify-between overflow-hidden">
@@ -64,7 +75,7 @@ session_start();
 
 
             if ($numRows > 0) {
-                echo'<div class="flex flex-wrap -m-1">';
+                echo '<div class="flex flex-wrap -m-1">';
                 while ($row = mysqli_fetch_assoc($res)) {
                     echo '
                         
@@ -101,6 +112,7 @@ session_start();
                                     <div class="flex flex-col">
                                         <h2 class="text-gray-900 text-lg title-font font-bold">' . $row['sec_name'] . '</h2>
                                         <h2 class="text-gray-900 text-xs">Section : ' . $row['sec_icon'] . '</h2>
+                                        
                                     </div>
                                 </div>
                                 <div class="flex-grow">';
@@ -109,9 +121,15 @@ session_start();
                     } else {
                         echo '<p class="leading-relaxed text-base">' . substr($row['sec_info'], 0, 70) . '</p>';
                     }
+
+                    $sec_name = $row['sec_name'];
+                    $sql_inner = "SELECT * FROM `paper` WHERE `email` = '$uemail' AND `paper_sec` = '$sec_name' ;";
+                    $res_inner = mysqli_query($con, $sql_inner);
+                    $numRows_inner = mysqli_num_rows($res_inner);
+
                     echo '
-                                    
-                                        <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="#">Explore
+                    <h2 class="text-gray-900 text-xs">Paper Count : ' . $numRows_inner . '</h2>
+                                        <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="threads.php?section='.$sec_name.'">Explore
                                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
                                             </svg>

@@ -1,5 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+session_start();
+if (!isset($_SESSION['signedIn'])) {
+    header("Location: login.html");
+    exit();
+}
+
+$section_name = $_GET['section'];
+
+include '../php-src/db/db_connect.php';
+$uemail = $_SESSION['uemail'];
+$sql = "SELECT * FROM `section` WHERE `uemail` = '$uemail' AND `sec_name` = '$section_name'";
+$res = mysqli_query($con, $sql);
+$numRows = mysqli_num_rows($res);
+$row = mysqli_fetch_assoc($res);
+
+$sec_icon = '';
+
+switch ($row['sec_icon']) {
+    case "Development":
+        $sec_icon = '<i class="fa-brands fa-html5 text-black fa-flip"></i>';
+        break;
+    case "Coding":
+        $sec_icon = '<i class="fa-solid fa-terminal text-black fa-flip"></i>';
+        break;
+    case "Research Writings":
+        $sec_icon = '<i class="fa-solid fa-pen-nib text-black fa-flip"></i>';
+        break;
+    case "Social":
+        $sec_icon = '<i class="fa-regular fa-comment text-black fa-bounce"></i>';
+        break;
+    case "Hardware":
+        $sec_icon = 'fa-solid fa-laptop text-black fa-beat-fade';
+        break;
+    case "Technology":
+        $sec_icon = '<i class="fa-solid fa-flask-vial text-black fa-beat-fade"></i>';
+        break;
+    default:
+        $sec_icon = '<i class="fa-solid fa-snowflake fa-spin text-black"></i>';
+}
+
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -10,23 +52,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
     <script type="text/javascript">
-        function preventBack(){
+        function preventBack() {
             window.history.forward()
         };
-        setTimeout("preventBack()",0);
-        window.onunload=function(){null;}
+        setTimeout("preventBack()", 0);
+        window.onunload = function() {
+            null;
+        }
     </script>
 </head>
 
-<style>
-    select {
-        font-family: 'FontAwesome', 'Second Font name'
-    }
-</style>
-
-<body class="flex flex-col h-screen justify-between">
+<body class="flex flex-col h-screen justify-between overflow-hidden">
 
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap flex-col p-2 md:flex-row items-center">
@@ -39,11 +76,11 @@
                 <a class="mr-5 hover:text-gray-900 font-semibold">Contact Us</a>
             </nav>
             <a class="mr-5 text-green-600 hover:text-gray-900 font-semibold" href="#">
-                <script>
-                    var currentURL = window.location.href; //Gets the content of address bar
-                    var findUser = currentURL.search("user=");
-                    document.write(currentURL.substring(findUser+5, currentURL.length));
-                </script>
+                <?php
+                if (isset($_SESSION['signedIn']) && $_SESSION['signedIn'] == true) {
+                    echo $_SESSION['uemail'];
+                }
+                ?>
             </a>
             <button class="inline-flex items-center bg-green-600 border-0 py-1 px-3 focus:outline-none hover:bg-green-900 rounded text-base text-white font-semibold mt-4 mx-2 md:mt-0 shadow-2xl" onclick="window.location.href='../php-src/logout.php'">Logout
             </button>
@@ -51,44 +88,39 @@
     </header>
 
     <section class="text-gray-600 body-font">
-        <div class="container px-5 py-4 mx-auto">
-            <div class="lg:w-4/5 mx-auto flex flex-wrap">
-                <img alt="ecommerce" class="lg:w-1/3 w-full lg:h-auto h-44 object-contain object-center rounded mx-auto" src="../img/section.png">
-                <div class="lg:w-2/3 w-full font-mono bg-gray-100 rounded-2xl px-8 py-2 flex flex-col">
-                    <h1 class="text-gray-900 lg:text-3xl text-xl title-font text-center font-medium font-bold mb-1">New Section</h1>
-                    <form class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 flex flex-col" action="../php-src/newSetion.php" method="post">
-                        <div class="flex lg:flex-row flex-col w-full my-2">
-                            <div class="flex flex-col ml-3 w-full my-2">
-                                <span class="mr-3 font-bold">Section Name</span>
-                                <input type="text" id="sec-name" name="sec-name" class="w-full bg-white rounded-lg border-green-500 border-2 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-bold">
-                            </div>
-                            <div class="flex flex-col ml-3 w-full my-2">
-                                <span class="mr-3 font-bold">Select Section Icon</span>
-                                <select id="sec-icon" name="sec-icon" class="bg-white border-green-500 border-2 text-green-700 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5">
-                                    <option value="Research Writings">&#xf5ad; - Research Writings</option>
-                                    <option value="Social">&#xf075; - Social</option>
-                                    <option value="Technology">&#xe4f3; - Technology </option>
-                                    <option value="Hardware">&#xf109; - Hardware</option>
-                                    <option value="Coding">&#xf120; - Coding</option>
-                                    <option value="Development">&#xf13b; - Development</option>
-                                    <option value="Others">&#xf2dc; - Others</option>
-                                </select>
-                            </div>
-                        </div>
+        <div class="container px-5 py-2 mx-auto">
+            <div class="flex flex-col text-center w-full mb-2">
+                <h2 class="text-xs text-green-500 tracking-widest font-medium title-font mb-1">SECTION</h2>
+                <div class="flex flex-row mx-auto">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900"><?php echo $section_name; ?></h1>
+                <div class="w-8 h-8 mx-4 my-2 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                    <?php echo $sec_icon; ?>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                        <div class="flex flex-col ml-6 w-full">
-                            <span class="mr-3 font-bold">Section Info</span>
-                            <textarea id="sec-info" name="sec-info" class="w-full bg-gray-50 bg-opacity-50 rounded-lg border-green-500 border-2 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" rows="3" cols="55" maxlength="200"></textarea>
-                            <div id="counter" class="text-right text-xs"></div>
+    <section class="text-gray-600 body-font overflow-auto">
+        <div class="container px-5 py-12 mx-auto flex flex-wrap">
+            <div class="flex flex-wrap -m-4">
+                <div class="p-4 lg:w-1/2 md:w-full">
+                    <div class="flex border-2 rounded-lg border-green-200 border-opacity-50 shadow-xl p-8 sm:flex-row flex-col">
+                        <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-8 h-8" viewBox="0 0 24 24">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                            </svg>
                         </div>
-
-                        <div class="flex flex-col ml-6 my-2 w-full">
-                            <button class="flex mx-auto text-black font-bold bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">
-                                <i class="fa fa-fan text-md text-black px-2 py-1 animate-spin"></i>
-                                Create Section
-                            </button>
+                        <div class="flex-grow">
+                            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Shooting Stars</h2>
+                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                            <a class="mt-3 text-green-500 inline-flex items-center">Learn More
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -133,21 +165,5 @@
     </footer>
 
 </body>
-<script>
-    const messageEle = document.getElementById('sec-info');
-    const counterEle = document.getElementById('counter');
-
-    messageEle.addEventListener('input', function(e) {
-        const target = e.target;
-
-        // Get the `maxlength` attribute
-        const maxLength = target.getAttribute('maxlength');
-
-        // Count the current number of characters
-        const currentLength = target.value.length;
-
-        counterEle.innerHTML = `${currentLength}/${maxLength}`;
-    });
-</script>
 
 </html>

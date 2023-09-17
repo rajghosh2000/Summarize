@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
 <?php
 $err = "false";
 
@@ -24,7 +34,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['signedIn'] = true;
             $_SESSION['uemail'] = $usrEmail;
             $_SESSION['uname'] = $usrName;
-            header("Location: ../pages/main.php");
+            echo '
+                <script type="text/javascript">
+                    jQuery(function validation(){
+                        swal({
+                                title: "Success",
+                                text: "Successfully Inserted",
+                                icon: "success",
+                                button: "Okay",
+                            });
+                    });
+                </script>';
+            header("refresh:2; ../pages/main.php");
             exit();
         } else {
             $err = "Details not added!!";
@@ -33,3 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: ../index.html");
     exit();
 }
+?>
+
+<?php include('../js/js.php') ?>
+
+</html>
