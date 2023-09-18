@@ -2,11 +2,14 @@
 <html lang="en">
 
 <?php
+include('../api/paperSearchApi.php');
+
 session_start();
 if (!isset($_SESSION['signedIn'])) {
     header("Location: login.html");
     exit();
 }
+$doi = $_GET['DOI'];
 ?>
 
 <head>
@@ -31,7 +34,7 @@ if (!isset($_SESSION['signedIn'])) {
                 <img class="bg-none h-20 w-48" src="../img/logo.png">
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                <a class="mr-5 hover:text-gray-900 font-semibold" href="main.php">Your Network</a>
+                <a class="mr-5 hover:text-gray-900 font-semibold" href="main.php">My Network</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">About</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">Contact Us</a>
             </nav>
@@ -47,6 +50,19 @@ if (!isset($_SESSION['signedIn'])) {
         </div>
     </header>
 
+    <?php
+    $res = json_decode(paperSearchByDOI($doi));
+    $authors = array();
+
+    foreach ($res->Authors as $authorInfo) {
+        // Loop through the properties of each authorInfo object
+        foreach ($authorInfo as $authorNumber => $authorName) {
+            // Add the author name to the $authors array
+            $authors[] = $authorName;
+        }
+    }
+    ?>
+
     <section class="text-gray-600 body-font font-mono relative overflow-auto">
         <form class="container px-5 py-2 mx-auto flex sm:flex-nowrap flex-wrap" method="post" action="../php-src/postPaper.php">
             <div class="lg:w-2/3 md:w-1/2 bg-gray-200 rounded-lg static sm:mr-10 p-10 flex flex-col justify-start relative">
@@ -54,43 +70,55 @@ if (!isset($_SESSION['signedIn'])) {
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="pname" class="leading-7 text-sm text-gray-600">Paper Name</label>
-                            <input type="text" id="pname" name="pname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="pname" name="pname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Title; ?>" disabled>
                         </div>
                     </div>
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="aname" class="leading-7 text-sm text-gray-600">Author's Name</label>
-                            <input type="text" id="aname" name="aname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="aname" name="aname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo implode(", ", $authors); ?>" disabled>
                         </div>
                     </div>
-                    <div class="p-2 lg:w-1/2 w-full">
-                        <div class="relative">
-                            <label for="pyear" class="leading-7 text-sm text-gray-600">Year of Publication</label>
-                            <input type="text" id="pyear" name="pyear" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                        </div>
-                    </div>
-                    <div class="p-2 lg:w-1/2 w-full">
+
+                    <div class="p-2 lg:w-full w-full">
                         <div class="relative">
                             <label for="publisher" class="leading-7 text-sm text-gray-600">Publisher</label>
-                            <input type="text" id="publisher" name="publisher" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="publisher" name="publisher" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Publisher; ?>" disabled>
                         </div>
                     </div>
+
+                    <div class="p-2 lg:w-1/4 w-full">
+                        <div class="relative">
+                            <label for="pyear" class="leading-7 text-sm text-gray-600">Year of Publication</label>
+                            <input type="text" id="pyear" name="pyear" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Month . ' ' . $res->Year; ?>" disabled>
+                        </div>
+                    </div>
+
                     <div class="p-2 lg:w-1/2 w-full">
                         <div class="relative">
                             <label for="pdoi" class="leading-7 text-sm text-gray-600">DOI</label>
-                            <input type="text" id="pdoi" name="pdoi" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="pdoi" name="pdoi" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $doi; ?>" disabled>
+                        </div>
+                    </div>
+
+                    <div class="p-2 lg:w-1/4 w-full">
+                        <div class="relative">
+                            <label for="pyear" class="leading-7 text-sm text-gray-600">Paper URL</label>
+                            <a type="button" class="text-black text-base bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg" name="purl" id="purl" href="<?php echo $res->PaperURL; ?>" target="_blank">External URL</a>
+                        </div>
+                    </div>
+
+                    <div class="p-2 lg:w-1/2 w-full">
+                        <div class="relative">
+                            <label for="upaper" class="leading-7 text-sm text-gray-600">Paper Link</label>
+                            <label for="upaper" class="leading-7 text-xs text-gray-600">(** Only Drive Link of the paper)</label>
+                            <input type="text" id="upaper" name="upaper" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 lg:w-1/2 w-full">
-                        <div class="relative">
-                            <label for="upaper" class="leading-7 text-sm text-gray-600">Upload Paper</label>
-                            <input type="file" id="upaper" name="upaper" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                        </div>
-                    </div>
-                    <div class="p-2 w-full">
                         <div class="relative flex flex-col">
                             <label for="psec" class="leading-7 text-sm text-gray-600">Select Section</label>
-                            <select id="psec" name="psec" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <select id="psec" name="psec" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-3 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
                                 <?php
                                 include '../php-src/db/db_connect.php';
                                 $uemail = $_SESSION['uemail'];
@@ -115,11 +143,11 @@ if (!isset($_SESSION['signedIn'])) {
                 <div class="relative mb-4">
                     <label for="rangeValue" class="leading-7 text-sm text-gray-600">User Paper Rating</label>
                     <span id="rangeValue" name="rangeValue" class="font-bold lg:text-lg text-sm">3</span>
-                    <input class="range" id="rating" name="rating" type="range" value="3" min="1" max="5" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)">
+                    <input class="range" id="rating" name="rating" type="range" value="3" min="1" max="5" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)" required>
                 </div>
                 <div class="relative mb-4">
                     <label for="summary" class="leading-7 text-sm text-gray-600">Your Summary</label>
-                    <textarea id="summary" name="summary" class="w-full bg-white rounded border border-gray-300 lg:h-52 h-40 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" rows="5" cols="55" maxlength="3000"></textarea>
+                    <textarea id="summary" name="summary" class="w-full bg-white rounded border border-gray-300 lg:h-52 h-40 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" rows="5" cols="55" maxlength="3000" required></textarea>
                     <div id="counter" class="text-right text-xs"></div>
                 </div>
                 <button class="text-black font-bold bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-700 rounded text-lg">Summarize</button>

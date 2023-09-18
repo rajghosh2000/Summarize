@@ -35,7 +35,7 @@ if (!isset($_SESSION['signedIn'])) {
                 <img class="bg-none h-20 w-48" src="../img/logo.png">
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                <a class="mr-5 hover:text-gray-900 font-semibold" href="main.php">Your Network</a>
+                <a class="mr-5 hover:text-gray-900 font-semibold" href="main.php">My Network</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">About</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">Contact Us</a>
             </nav>
@@ -91,7 +91,7 @@ if (!isset($_SESSION['signedIn'])) {
         include('../api/paperSearchApi.php');
         $search_paper_text = $_POST['pname'];
         $res = json_decode(paperSearchByName($search_paper_text));
-        if ($res->Status) {
+        if ($res[0]->Status) {
     ?>
             <section class="text-gray-600 body-font overflow-hidden">
                 <div class="container px-5 py-1 mx-auto">
@@ -111,7 +111,7 @@ if (!isset($_SESSION['signedIn'])) {
                             </div>
                             <div class="md:flex-grow">
                                 <h2 class="text-xl font-medium text-gray-900 title-font mb-2"><?php echo $res->Title; ?></h2>
-                                <a class="text-green-500 inline-flex items-center mt-4" href="newPaper.php?Title=<?php echo $res->Title; ?>">Learn More
+                                <a class="text-green-500 inline-flex items-center mt-4" href="newPaper.php?DOI=<?php echo $res->DOI; ?>">Learn More
                                     <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
                                         <path d="M12 5l7 7-7 7"></path>

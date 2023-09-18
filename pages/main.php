@@ -34,7 +34,7 @@ if (!isset($_SESSION['signedIn'])) {
                 <img class="bg-none h-20 w-48" src="../img/logo.png">
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                <a class="mr-5 hover:text-gray-900 font-semibold" href="main.php">Your Network</a>
+                <a class="mr-5 hover:text-gray-900 font-semibold" href="main.php">My Network</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">About</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">Contact Us</a>
             </nav>
@@ -53,7 +53,7 @@ if (!isset($_SESSION['signedIn'])) {
         <div class="container px-5 mx-auto">
             <div class="flex flex-wrap w-full">
                 <div class="lg:w-5/6 w-full lg:mb-0 text-center">
-                    <h1 class="sm:text-3xl text-2xl font-bold title-font font-mono mb-2 text-gray-900">Your Network</h1>
+                    <h1 class="sm:text-3xl text-2xl font-bold title-font font-mono mb-2 text-gray-900">My Network</h1>
                 </div>
                 <?php
                 echo '<a type="button" class="lg:w-1/10 flex mx-auto text-black bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg font-bold title-font font-mono shadow-2xl" href="section.html?user=' . $_SESSION['uemail'] . '">

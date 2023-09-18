@@ -1,4 +1,4 @@
 <?php
-    include('paperSearchApi.php');
-    echo paperSearchByDOI('10.1145/3508360');
+    include('../api/paperSearchApi.php');
+    echo paperSearchByName('Resource aware fog based remote health monitoring system');
 ?>

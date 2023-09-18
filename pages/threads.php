@@ -71,7 +71,7 @@ switch ($row['sec_icon']) {
                 <img class="bg-none h-20 w-48" src="../img/logo.png">
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                <a class="mr-5 hover:text-gray-900 font-semibold" href="main.php">Your Network</a>
+                <a class="mr-5 hover:text-gray-900 font-semibold" href="main.php">My Network</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">About</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">Contact Us</a>
             </nav>
