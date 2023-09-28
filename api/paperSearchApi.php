@@ -30,9 +30,7 @@ function paperSearchByName($paper_name)
 
         $papersFound = array();
         $paperCount = 0;
-        $papersFound[] = array(
-            "Status" => 1
-        );
+        
         foreach ($data->message->items as $items) {
             if ($paperCount++ < 5) {
                 $result = ($items);
@@ -118,10 +116,10 @@ function paperSearchByName($paper_name)
                 $papersFound[] = $data;
             }
             else{
+                $papersFound['Status'] = 1;
                 break;
             }
         }
-
         return json_encode($papersFound);
     } else {
         $data = array(

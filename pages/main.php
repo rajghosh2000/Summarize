@@ -17,16 +17,134 @@ if (!isset($_SESSION['signedIn'])) {
     <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <script type="text/javascript">
-        function preventBack(){
-            window.history.forward()
-        };
-        setTimeout("preventBack()",0);
-        window.onunload=function(){null;}
-    </script>
 </head>
+<style>
+    <?php include "../css/style.css" ?>
+</style>
 
 <body class="flex flex-col h-screen justify-between overflow-hidden">
+
+
+    <?php
+    if (isset($_GET['user']) && $_GET['user'] == 'True') {
+        if (isset($_GET['reg']) && $_GET['reg'] == 'success') {
+            // Handle registration success case
+            echo '
+                <div class="toast active">
+                    <div class="toast-content">
+                        <i class="fas fa-solid fa-check check"></i>
+            
+                        <div class="message">
+                            <span class="text text-1">Success</span>
+                            <span class="text text-2">Registration Successful</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close"></i>
+                    <div class="progress active"></div>
+                </div>
+            ';
+        } elseif (isset($_GET['login']) && $_GET['login'] == 'success') {
+            // Handle login success case
+            echo '
+                <div class="toast active">
+                    <div class="toast-content">
+                        <i class="fas fa-solid fa-check check"></i>
+            
+                        <div class="message">
+                            <span class="text text-1">Success</span>
+                            <span class="text text-2">Login Successful</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close"></i>
+                    <div class="progress active"></div>
+                </div>
+            ';
+        }
+    }
+
+    if (isset($_GET['info']) && $_GET['info'] == 'Added') {
+        // Handle Successfull Login
+        echo '
+                <div class="toast active">
+                    <div class="toast-content">
+                        <i class="fas fa-solid fa-check check"></i>
+            
+                        <div class="message">
+                            <span class="text text-1">Success</span>
+                            <span class="text text-2">Paper Added Successfully</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close"></i>
+                    <div class="progress active"></div>
+                </div>
+            ';
+    }elseif(isset($_GET['info']) && $_GET['info'] == 'Exists'){
+        // Handle Paper Exists
+        echo '
+                <div class="toast active">
+                    <div class="toast-content">
+                        <i class="fa-solid fa-exclamation check" style="background-color: #b4030c"></i>
+                        <div class="message">
+                            <span class="text text-1">Failure</span>
+                            <span class="text text-2">Paper Exists in Section</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close"></i>
+                    <div class="progresses active"></div>
+                </div>
+            ';
+    }elseif(isset($_GET['info']) && $_GET['info'] == 'AddedSec'){
+        // Handle Paper Exists
+        echo '
+            <div class="toast active">
+                <div class="toast-content">
+                    <i class="fas fa-solid fa-check check"></i>
+                    <div class="message">
+                        <span class="text text-1">Success</span>
+                        <span class="text text-2">Section Added Successfully</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progress active"></div>
+            </div>
+            ';
+    }elseif(isset($_GET['info']) && $_GET['info'] == 'ExistsSec'){
+        // Handle Paper Exists
+        echo '
+                <div class="toast active">
+                    <div class="toast-content">
+                        <i class="fa-solid fa-exclamation check" style="background-color: #b4030c"></i>
+                        <div class="message">
+                            <span class="text text-1">Failure</span>
+                            <span class="text text-2">Section Name Already Exists</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close"></i>
+                    <div class="progresses active"></div>
+                </div>
+            ';
+    }elseif(isset($_GET['info']) && $_GET['info'] == 'ServerErr'){
+        // Handle Server Error
+        echo '
+                <div class="toast active">
+                    <div class="toast-content">
+                        <i class="fa-solid fa-exclamation check" style="background-color: #b4030c"></i>
+            
+                        <div class="message">
+                            <span class="text text-1">Server Error</span>
+                            <span class="text text-2">Sorry!!! Please Try Again</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close"></i>
+                    <div class="progresses active"></div>
+                </div>
+            ';
+    }
+
+    ?>
+    <script>
+    </script>
+
 
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap flex-col p-2 md:flex-row items-center">
@@ -49,6 +167,7 @@ if (!isset($_SESSION['signedIn'])) {
             </button>
         </div>
     </header>
+
     <section class="text-gray-600 body-font">
         <div class="container px-5 mx-auto">
             <div class="flex flex-wrap w-full">
@@ -129,7 +248,7 @@ if (!isset($_SESSION['signedIn'])) {
 
                     echo '
                     <h2 class="text-gray-900 text-xs">Paper Count : ' . $numRows_inner . '</h2>
-                                        <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="threads.php?section='.$sec_name.'">Explore
+                                        <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="threads.php?section=' . $sec_name . '">Explore
                                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
                                             </svg>
@@ -199,5 +318,40 @@ if (!isset($_SESSION['signedIn'])) {
     </footer>
 
 </body>
+
+<script type="text/javascript">
+    function preventBack() {
+        window.history.forward()
+    };
+    setTimeout("preventBack()", 0);
+    window.onunload = function() {
+        null;
+    }
+</script>
+<script>
+    const toast = document.querySelector(".toast");
+    (closeIcon = document.querySelector(".close")), (progress = document.querySelector(".progress"));
+
+    let timer1, timer2;
+
+    timer1 = setTimeout(() => {
+        toast.classList.remove("active");
+    }, 5000); //1s = 1000 milliseconds
+
+    timer2 = setTimeout(() => {
+        progress.classList.remove("active");
+    }, 5300);
+
+    closeIcon.addEventListener("click", () => {
+        toast.classList.remove("active");
+
+        setTimeout(() => {
+            progress.classList.remove("active");
+        }, 300);
+
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+    });
+</script>
 
 </html>

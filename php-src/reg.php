@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-
+</body>
 <?php
 $err = "false";
 
@@ -34,18 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['signedIn'] = true;
             $_SESSION['uemail'] = $usrEmail;
             $_SESSION['uname'] = $usrName;
-            echo '
-                <script type="text/javascript">
-                    jQuery(function validation(){
-                        swal({
-                                title: "Success",
-                                text: "Successfully Inserted",
-                                icon: "success",
-                                button: "Okay",
-                            });
-                    });
-                </script>';
-            header("refresh:2; ../pages/main.php");
+            header("Location: ../pages/main.php?user=True&reg=success");
             exit();
         } else {
             $err = "Details not added!!";
@@ -57,5 +47,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <?php include('../js/js.php') ?>
-
+</body>
 </html>

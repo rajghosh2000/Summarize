@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['signedIn'] = true;
             $_SESSION['uemail'] = $uemail;
             $_SESSION['uname'] = $row['name'];
-            header("Location: ../pages/main.php");
+            header("Location: ../pages/main.php?user=True&login=success");
             exit();
         } else {
             echo "Unable to log in ";

@@ -70,40 +70,42 @@ $doi = $_GET['DOI'];
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="pname" class="leading-7 text-sm text-gray-600">Paper Name</label>
-                            <input type="text" id="pname" name="pname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Title; ?>" disabled>
+                            <input type="text" id="pname" name="pname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Title; ?>" readonly>
                         </div>
                     </div>
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="aname" class="leading-7 text-sm text-gray-600">Author's Name</label>
-                            <input type="text" id="aname" name="aname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo implode(", ", $authors); ?>" disabled>
+                            <input type="text" id="aname" name="aname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo implode(", ", $authors); ?>" readonly>
                         </div>
                     </div>
 
                     <div class="p-2 lg:w-full w-full">
                         <div class="relative">
                             <label for="publisher" class="leading-7 text-sm text-gray-600">Publisher</label>
-                            <input type="text" id="publisher" name="publisher" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Publisher; ?>" disabled>
+                            <input type="hidden" id="pubin" name="pubin" value="<?php echo $res->PublishedIn; ?>">
+                            <input type="text" id="publisher" name="publisher" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Publisher; ?>" readonly>
                         </div>
                     </div>
 
                     <div class="p-2 lg:w-1/4 w-full">
                         <div class="relative">
                             <label for="pyear" class="leading-7 text-sm text-gray-600">Year of Publication</label>
-                            <input type="text" id="pyear" name="pyear" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Month . ' ' . $res->Year; ?>" disabled>
+                            <input type="text" id="pyear" name="pyear" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Month . ' ' . $res->Year; ?>" readonly>
                         </div>
                     </div>
 
                     <div class="p-2 lg:w-1/2 w-full">
                         <div class="relative">
                             <label for="pdoi" class="leading-7 text-sm text-gray-600">DOI</label>
-                            <input type="text" id="pdoi" name="pdoi" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $doi; ?>" disabled>
+                            <input type="text" id="pdoi" name="pdoi" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $doi; ?>" readonly>
                         </div>
                     </div>
 
                     <div class="p-2 lg:w-1/4 w-full">
                         <div class="relative">
-                            <label for="pyear" class="leading-7 text-sm text-gray-600">Paper URL</label>
+                            <label for="purl" class="leading-7 text-sm text-gray-600">Paper URL</label>
+                            <input type="hidden" id="purl" name="purl" value="<?php echo $res->PaperURL; ?>">
                             <a type="button" class="text-black text-base bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg" name="purl" id="purl" href="<?php echo $res->PaperURL; ?>" target="_blank">External URL</a>
                         </div>
                     </div>
