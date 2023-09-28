@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and $_SESSION['signedIn'] == true) {
     $aname = $_POST['aname'];
     $pyear = $_POST['pyear'];
     $publisher = $_POST['publisher'];
+    $publishedIn = $_POST['pubin'];
     $pdoi = $_POST['pdoi'];
     $pexternalurl = $_POST['purl'];
     $pdriveurl = $_POST['upaper'];
@@ -27,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and $_SESSION['signedIn'] == true) {
             header("Location: ../pages/main.php?info=Exists");
             exit();
         }else{
-            $sql = "INSERT INTO `paper` (`email`, `paper_name`, `paper_author`, `paper_yr`, `paper_doi`, `paper_publisher`, `paper_external_url`, `paper_drive_url`, `paper_sec`, `paper_user_rating`, `paper_user_summary`) VALUES ('$uemail', '$pname', '$aname', '$pyear', '$pdoi', '$publisher', '$pexternalurl', '$pdriveurl', '$psec', '$rangeValue', '$summary');";
+            $sql = "INSERT INTO `paper` (`email`, `paper_name`, `paper_author`, `paper_yr`, `paper_doi`, `paper_publisher`, `paper_published_in`, `paper_external_url`, `paper_drive_url`, `paper_sec`, `paper_user_rating`, `paper_user_summary`) VALUES ('$uemail', '$pname', '$aname', '$pyear', '$pdoi', '$publisher', '$publishedIn', '$pexternalurl', '$pdriveurl', '$psec', '$rangeValue', '$summary');";
 
             $res = mysqli_query($con, $sql);
             if ($res) {

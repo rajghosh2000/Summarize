@@ -63,7 +63,7 @@ switch ($row['sec_icon']) {
     </script>
 </head>
 
-<body class="flex flex-col h-screen justify-between overflow-hidden">
+<body class="flex flex-col h-screen justify-between overflow-hidden font-mono">
 
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap flex-col p-2 md:flex-row items-center">
@@ -90,12 +90,12 @@ switch ($row['sec_icon']) {
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-2 mx-auto">
             <div class="flex flex-col text-center w-full mb-2">
-                <h2 class="text-xs text-green-500 tracking-widest font-medium title-font mb-1">SECTION</h2>
+                <h2 class="text-xs text-green-500 tracking-widest font-semibold title-font mb-1">SECTION</h2>
                 <div class="flex flex-row mx-auto">
-                <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900"><?php echo $section_name; ?></h1>
-                <div class="w-8 h-8 mx-4 my-2 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
-                    <?php echo $sec_icon; ?>
-                </div>
+                    <h1 class="sm:text-3xl text-2xl font-bold title-font text-gray-900"><?php echo $section_name; ?></h1>
+                    <div class="w-8 h-8 mx-4 my-2 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                        <?php echo $sec_icon; ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,27 +103,87 @@ switch ($row['sec_icon']) {
 
     <section class="text-gray-600 body-font overflow-auto">
         <div class="container px-5 py-12 mx-auto flex flex-wrap">
-            <div class="flex flex-wrap -m-4">
-                <div class="p-4 lg:w-1/2 md:w-full">
-                    <div class="flex border-2 rounded-lg border-green-200 border-opacity-50 shadow-xl p-8 sm:flex-row flex-col">
-                        <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-8 h-8" viewBox="0 0 24 24">
-                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                            </svg>
+
+            <?php
+            include '../php-src/db/db_connect.php';
+            $uemail = $_SESSION['uemail'];
+            $sql = "SELECT * FROM `paper` WHERE `email` = '$uemail' AND `paper_sec` = '$section_name';";
+            $res = mysqli_query($con, $sql);
+            $numRows = mysqli_num_rows($res);
+
+
+            if ($numRows > 0) {
+                echo '<div class="flex flex-wrap -m-4">';
+                while ($row = mysqli_fetch_assoc($res)) {
+                    $pub = '';
+                    if (strlen($row['paper_publisher']) > 27) {
+                        $pub = substr($row['paper_publisher'], 0, 27) . ' .....';
+                    } else {
+                        $pub = $row['paper_publisher'];
+                    }
+
+                    if ($numRows == 1) {
+            ?>
+                        <div class="p-4 w-full">
+                            <div class="flex border-2 rounded-lg border-green-200 border-opacity-50 shadow-xl p-8 sm:flex-row flex-col">
+                                <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0 border-4 border-green-500">
+                                    <div class="w-12 h-12 mx-4 my-2 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0 border-2 border-blue-900">
+                                        <i class="fa-solid fa-book-open-reader fa-beat text-black text-xl"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow">
+                                    <h2 class="text-gray-900 text-base title-font font-bold mb-3"><?php echo $row['paper_name'] ?></h2>
+                                    <p class="leading-relaxed text-sm">Publisher: <?php echo $pub; ?></p>
+                                    <p class="leading-relaxed text-xs font-bold">Year: <?php echo $row['paper_yr']; ?></p>
+                                    <a class="mt-3 text-green-700 inline-flex items-center font-bold" href="chkPaper.php?sno=<?php echo $row['p_sno']; ?>">Check Paper
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex-grow">
-                            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Shooting Stars</h2>
-                            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                            <a class="mt-3 text-green-500 inline-flex items-center">Learn More
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
+                    <?php } else {
+                    
+                    ?>
+                    <div class="p-4 lg:w-1/2 md:w-full">
+                        <div class="flex border-2 rounded-lg border-green-200 border-opacity-50 shadow-xl p-8 sm:flex-row flex-col">
+                            <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0 border-4 border-green-500">
+                                <div class="w-12 h-12 mx-4 my-2 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0 border-2 border-blue-900">
+                                    <i class="fa-solid fa-book-open-reader fa-beat text-black text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <h2 class="text-gray-900 text-base title-font font-bold mb-3"><?php echo $row['paper_name'] ?></h2>
+                                <p class="leading-relaxed text-sm">Publisher: <?php echo $pub; ?></p>
+                                <p class="leading-relaxed text-xs font-bold">Year: <?php echo $row['paper_yr']; ?></p>
+                                <a class="mt-3 text-green-700 inline-flex items-center font-bold" href="chkPaper.php?sno=<?php echo $row['p_sno']; ?>">Check Paper
+                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
+                <?php }} ?>
         </div>
+    <?php } else {
+                echo '
+                                <div class="flex items-center justify-center flex-col">
+                                    <img class="lg:w-2/6 md:w-3/6 w-5/6 object-contain object-center rounded h-72" alt="hero" src="../img/no-data.png">
+                                    <div class="text-center lg:w-2/3 w-full">
+                                        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">NO DATA YET!!! ADD THE FIRST SECTION HERE</h1>
+                                    <div class="flex justify-center">
+                                        <a type="button" class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" href="section.html?user=' . $_SESSION['uemail'] . '">New Section</a>
+                                    </div>
+                                </div>
+                            ';
+            }
+    ?>
+    <!--Start-->
+    <!--End-->
+    </div>
     </section>
 
     <footer class="text-gray-600 body-font">

@@ -106,15 +106,19 @@ if (!isset($_SESSION['signedIn'])) {
                 <div class="container px-2 py-4 mx-auto">
                     <?php
                     for ($i = 0; $i <= 4; $i++) {
-                        if (isset($res->$i)) {
+                        if (isset($res->$i) and !is_null($res->$i->DOI)) {
                             $paper = $res->$i;
                             $authors = array();
-                            foreach ($paper->Authors as $authorInfo) {
-                                // Loop through the properties of each authorInfo object
-                                foreach ($authorInfo as $authorNumber => $authorName) {
-                                    // Add the author name to the $authors array
-                                    $authors[] = $authorName;
+                            if (isset($paper->Authors) and !is_null($paper->Authors)) {
+                                foreach ($paper->Authors as $authorInfo) {
+                                    // Loop through the properties of each authorInfo object
+                                    foreach ($authorInfo as $authorNumber => $authorName) {
+                                        // Add the author name to the $authors array
+                                        $authors[] = $authorName;
+                                    }
                                 }
+                            } else {
+                                $authors[] = 'NOT AVAILABLE';
                             }
                     ?>
 
@@ -123,21 +127,29 @@ if (!isset($_SESSION['signedIn'])) {
                                     <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
                                         <span class="text-xs font-semibold text-gray-700 mt-2">
                                             <?php
-                                            if ($paper->Publisher == "Institute of Electrical and Electronics Engineers (IEEE)") {
-                                                echo 'IEEE';
-                                            } elseif ($paper->Publisher == "Association for Computing Machinery (ACM)") {
-                                                echo 'ACM';
-                                            } elseif ($paper->Publisher == "Springer International Publishing") {
-                                                echo 'Springer';
+                                            if (!is_null($paper->Publisher)) {
+                                                if ($paper->Publisher == "Institute of Electrical and Electronics Engineers (IEEE)") {
+                                                    echo 'IEEE';
+                                                } elseif ($paper->Publisher == "Association for Computing Machinery (ACM)") {
+                                                    echo 'ACM';
+                                                } elseif ($paper->Publisher == "Springer International Publishing") {
+                                                    echo 'Springer';
+                                                } else {
+                                                    echo $paper->Publisher;
+                                                }
                                             } else {
-                                                echo $paper->Publisher;
+                                                echo 'NOT AVAILABLE';
                                             }
                                             ?>
                                         </span>
-                                        <span class="mt-1 text-gray-500 text-sm"><?php echo $paper->Year; ?></span>
+                                        <span class="mt-1 text-gray-500 text-sm">
+                                            <?php echo is_null($paper->Year) ? 'NOT AVAILABLE' : $paper->Year; ?>
+                                        </span>
                                     </div>
                                     <div class="md:flex-grow mx-5">
-                                        <h2 class="text-xl font-medium text-gray-900 title-font mb-2"><?php echo $paper->Title; ?></h2>
+                                        <h2 class="text-xl font-medium text-gray-900 title-font mb-2">
+                                            <?php echo is_null($paper->Title) ? 'NOT AVAILABLE' : $paper->Title; ?>
+                                        </h2>
                                         <h2 class="text-xs font-semibold text-gray-700 mt-2 w-full">
                                             <?php echo implode(", ", $authors); ?>
                                         </h2>
