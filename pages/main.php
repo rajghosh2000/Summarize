@@ -94,7 +94,7 @@ if (!isset($_SESSION['signedIn'])) {
                 </div>
             ';
     }elseif(isset($_GET['info']) && $_GET['info'] == 'AddedSec'){
-        // Handle Paper Exists
+        // Handle Add Dection Success
         echo '
             <div class="toast active">
                 <div class="toast-content">
@@ -109,7 +109,7 @@ if (!isset($_SESSION['signedIn'])) {
             </div>
             ';
     }elseif(isset($_GET['info']) && $_GET['info'] == 'ExistsSec'){
-        // Handle Paper Exists
+        // Handle Section Exists
         echo '
                 <div class="toast active">
                     <div class="toast-content">
@@ -142,10 +142,7 @@ if (!isset($_SESSION['signedIn'])) {
     }
 
     ?>
-    <script>
-    </script>
-
-
+   
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap flex-col p-2 md:flex-row items-center">
             <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="main.php">
@@ -248,11 +245,13 @@ if (!isset($_SESSION['signedIn'])) {
 
                     echo '
                     <h2 class="text-gray-900 text-xs">Paper Count : ' . $numRows_inner . '</h2>
+                                        
                                         <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="threads.php?section=' . $sec_name . '">Explore
                                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
                                             </svg>
                                         </a>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -353,5 +352,12 @@ if (!isset($_SESSION['signedIn'])) {
         clearTimeout(timer2);
     });
 </script>
-
+<!-- <div class="flex flex-row">
+                                            <a href="" class="text-red-600 p-2">
+                                                <i class="fa-solid fa-trash-can text-base w-2 h-2"></i>
+                                            </a>
+                                            <a href="" class="text-red-600 p-2">
+                                                <i class="fa-solid fa-trash-can text-base w-2 h-2"></i>
+                                            </a>
+                                        </div> -->
 </html>

@@ -62,8 +62,108 @@ switch ($row['sec_icon']) {
         }
     </script>
 </head>
+<style>
+    <?php include "../css/style.css" ?>
+</style>
 
 <body class="flex flex-col h-screen justify-between overflow-hidden font-mono">
+
+    <?php
+    if (isset($_GET['info']) && $_GET['info'] == 'PaperDel') {
+        // Handle Successfull Login
+        echo '
+            <div class="toast active">
+                <div class="toast-content">
+                    <i class="fas fa-solid fa-check check"></i>
+
+                    <div class="message">
+                        <span class="text text-1">Success</span>
+                        <span class="text text-2">Paper Deleted Successfully</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progress active"></div>
+            </div>
+    ';
+    } elseif (isset($_GET['info']) && $_GET['info'] == 'PaperMoved') {
+        // Handle Successfull Login
+        echo '
+            <div class="toast active">
+                <div class="toast-content">
+                    <i class="fas fa-solid fa-check check"></i>
+
+                    <div class="message">
+                        <span class="text text-1">Success</span>
+                        <span class="text text-2">Paper Moved Successfully</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progress active"></div>
+            </div>
+    ';
+    }elseif (isset($_GET['info']) && $_GET['info'] == 'PaperModified') {
+        // Handle Successfull Login
+        echo '
+            <div class="toast active">
+                <div class="toast-content">
+                    <i class="fas fa-solid fa-check check"></i>
+
+                    <div class="message">
+                        <span class="text text-1">Success</span>
+                        <span class="text text-2">Paper Modified Successfully</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progress active"></div>
+            </div>
+    ';
+    } elseif (isset($_GET['info']) && $_GET['info'] == 'ModErr') {
+        // Handle Paper Exists
+        echo '
+            <div class="toast active">
+                <div class="toast-content">
+                    <i class="fa-solid fa-exclamation check" style="background-color: #b4030c"></i>
+                    <div class="message">
+                        <span class="text text-1">Failure</span>
+                        <span class="text text-2">Action Failed</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progresses active"></div>
+            </div>
+    ';
+    } elseif (isset($_GET['info']) && $_GET['info'] == 'PaperNotFound') {
+        // Handle Paper Exists
+        echo '
+            <div class="toast active">
+                <div class="toast-content">
+                    <i class="fa-solid fa-exclamation check" style="background-color: #b4030c"></i>
+                    <div class="message">
+                        <span class="text text-1">Not Found</span>
+                        <span class="text text-2">Paper Not Available</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progresses active"></div>
+            </div>
+    ';
+    } elseif (isset($_GET['info']) && $_GET['info'] == 'Err') {
+        // Handle Paper Exists
+        echo '
+            <div class="toast active">
+                <div class="toast-content">
+                    <i class="fa-solid fa-exclamation check" style="background-color: #b4030c"></i>
+                    <div class="message">
+                        <span class="text text-1">Failure</span>
+                        <span class="text text-2">Server Error</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progresses active"></div>
+            </div>
+    ';
+    }
+    ?>
 
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap flex-col p-2 md:flex-row items-center">
@@ -89,11 +189,11 @@ switch ($row['sec_icon']) {
 
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-2 mx-auto">
-            <div class="flex flex-col text-center w-full mb-2">
-                <h2 class="text-xs text-green-500 tracking-widest font-semibold title-font mb-1">SECTION</h2>
+            <div class="flex flex-col text-center w-full">
+                <h2 class="text-xs text-green-500 tracking-widest font-semibold title-font">SECTION</h2>
                 <div class="flex flex-row mx-auto">
                     <h1 class="sm:text-3xl text-2xl font-bold title-font text-gray-900"><?php echo $section_name; ?></h1>
-                    <div class="w-8 h-8 mx-4 my-2 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                    <div class="w-8 h-8 mx-4 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
                         <?php echo $sec_icon; ?>
                     </div>
                 </div>
@@ -116,8 +216,8 @@ switch ($row['sec_icon']) {
                 echo '<div class="flex flex-wrap -m-4">';
                 while ($row = mysqli_fetch_assoc($res)) {
                     $pub = '';
-                    if (strlen($row['paper_publisher']) > 27) {
-                        $pub = substr($row['paper_publisher'], 0, 27) . ' .....';
+                    if (strlen($row['paper_publisher']) > 40) {
+                        $pub = substr($row['paper_publisher'], 0, 40) . ' .....';
                     } else {
                         $pub = $row['paper_publisher'];
                     }
@@ -125,17 +225,17 @@ switch ($row['sec_icon']) {
                     if ($numRows == 1) {
             ?>
                         <div class="p-4 w-full">
-                            <div class="flex border-2 rounded-lg border-green-200 border-opacity-50 shadow-xl p-8 sm:flex-row flex-col">
-                                <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0 border-4 border-green-500">
-                                    <div class="w-12 h-12 mx-4 my-2 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0 border-2 border-blue-900">
+                            <div class="flex p-8 rounded-xl border-green-200 border-opacity-50 shadow-2xl sm:flex-row flex-col">
+                                <div class="w-16 h-16 sm:mr-8 sm:mb-0 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0 border-4 border-green-500">
+                                    <div class="w-12 h-12 mx-4 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0 border-2 border-blue-900">
                                         <i class="fa-solid fa-book-open-reader fa-beat text-black text-xl"></i>
                                     </div>
                                 </div>
                                 <div class="flex-grow">
-                                    <h2 class="text-gray-900 text-base title-font font-bold mb-3"><?php echo $row['paper_name'] ?></h2>
+                                    <h2 class="text-gray-900 text-base title-font font-bold"><?php echo $row['paper_name'] ?></h2>
                                     <p class="leading-relaxed text-sm">Publisher: <?php echo $pub; ?></p>
                                     <p class="leading-relaxed text-xs font-bold">Year: <?php echo $row['paper_yr']; ?></p>
-                                    <a class="mt-3 text-green-700 inline-flex items-center font-bold" href="chkPaper.php?sno=<?php echo $row['p_sno']; ?>">Check Paper
+                                    <a class="text-green-700 inline-flex items-center font-bold" href="chkPaper.php?sno=<?php echo $row['p_sno']; ?>">Check Paper
                                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                             <path d="M5 12h14M12 5l7 7-7 7"></path>
                                         </svg>
@@ -144,29 +244,30 @@ switch ($row['sec_icon']) {
                             </div>
                         </div>
                     <?php } else {
-                    
+
                     ?>
-                    <div class="p-4 lg:w-1/2 md:w-full">
-                        <div class="flex border-2 rounded-lg border-green-200 border-opacity-50 shadow-xl p-8 sm:flex-row flex-col">
-                            <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0 border-4 border-green-500">
-                                <div class="w-12 h-12 mx-4 my-2 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0 border-2 border-blue-900">
-                                    <i class="fa-solid fa-book-open-reader fa-beat text-black text-xl"></i>
+                        <div class="p-4 lg:w-1/2 md:w-full">
+                            <div class="flex border-2 rounded-lg border-green-200 border-opacity-50 shadow-2xl p-8 sm:flex-row flex-col">
+                                <div class="w-16 h-16 sm:mr-8 sm:mb-0 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0 border-4 border-green-500">
+                                    <div class="w-12 h-12 mx-4 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0 border-2 border-blue-900">
+                                        <i class="fa-solid fa-book-open-reader fa-beat text-black text-xl"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow">
+                                    <h2 class="text-gray-900 text-base title-font font-bold"><?php echo $row['paper_name'] ?></h2>
+                                    <p class="leading-relaxed text-sm"><?php echo $pub; ?></p>
+                                    <p class="leading-relaxed text-xs font-bold">Year: <?php echo $row['paper_yr']; ?></p>
+                                    <a class="text-green-700 inline-flex items-center font-bold" href="chkPaper.php?sno=<?php echo $row['p_sno']; ?>">Check Paper
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="flex-grow">
-                                <h2 class="text-gray-900 text-base title-font font-bold mb-3"><?php echo $row['paper_name'] ?></h2>
-                                <p class="leading-relaxed text-sm">Publisher: <?php echo $pub; ?></p>
-                                <p class="leading-relaxed text-xs font-bold">Year: <?php echo $row['paper_yr']; ?></p>
-                                <a class="mt-3 text-green-700 inline-flex items-center font-bold" href="chkPaper.php?sno=<?php echo $row['p_sno']; ?>">Check Paper
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                    </svg>
-                                </a>
-                            </div>
                         </div>
-                    </div>
 
-                <?php }} ?>
+                <?php }
+                } ?>
         </div>
     <?php } else {
                 echo '
@@ -225,5 +326,30 @@ switch ($row['sec_icon']) {
     </footer>
 
 </body>
+<script>
+    const toast = document.querySelector(".toast");
+    (closeIcon = document.querySelector(".close")), (progress = document.querySelector(".progress"));
+
+    let timer1, timer2;
+
+    timer1 = setTimeout(() => {
+        toast.classList.remove("active");
+    }, 5000); //1s = 1000 milliseconds
+
+    timer2 = setTimeout(() => {
+        progress.classList.remove("active");
+    }, 5300);
+
+    closeIcon.addEventListener("click", () => {
+        toast.classList.remove("active");
+
+        setTimeout(() => {
+            progress.classList.remove("active");
+        }, 300);
+
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+    });
+</script>
 
 </html>

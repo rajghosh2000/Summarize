@@ -2,14 +2,19 @@
 <html lang="en">
 
 <?php
-include('../api/paperSearchApi.php');
-
 session_start();
 if (!isset($_SESSION['signedIn'])) {
     header("Location: login.html");
     exit();
 }
-$doi = $_GET['DOI'];
+$paperID = (int)$_GET['sno'];
+
+include '../php-src/db/db_connect.php';
+$uemail = $_SESSION['uemail'];
+$sql = "SELECT * FROM `paper` WHERE `email` = '$uemail' AND `p_sno` = '$paperID';";
+$res = mysqli_query($con, $sql);
+$row = mysqli_fetch_assoc($res);
+
 ?>
 
 <head>
@@ -34,6 +39,7 @@ $doi = $_GET['DOI'];
                 <img class="bg-none h-20 w-48" src="../img/logo.png">
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+                <a class="mr-5 hover:text-gray-900 font-semibold" href="threads.php?section=<?php echo $row['paper_sec']; ?>">Go Back</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold" href="main.php">My Network</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">About</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">Contact Us</a>
@@ -50,67 +56,42 @@ $doi = $_GET['DOI'];
         </div>
     </header>
 
-    <?php
-    $res = json_decode(paperSearchByDOI($doi));
-    $authors = array();
-
-    if (isset($res->Authors) and !is_null($res->Authors)) {
-        foreach ($res->Authors as $authorInfo) {
-            // Loop through the properties of each authorInfo object
-            foreach ($authorInfo as $authorNumber => $authorName) {
-                // Add the author name to the $authors array
-                $authors[] = $authorName;
-            }
-        }
-    } else {
-        $authors[] = 'NOT AVAILABLE';
-    }
-    ?>
-
     <section class="text-gray-600 body-font font-mono relative overflow-auto">
-        <form class="container px-5 py-2 mx-auto flex sm:flex-nowrap flex-wrap" method="post" action="../php-src/postPaper.php">
+        <form class="container px-5 py-2 mx-auto flex sm:flex-nowrap flex-wrap" method="post" action="../php-src/modifyPaper.php?sno=<?php echo $paperID; ?>&method=edit">
             <div class="lg:w-2/3 md:w-1/2 bg-gray-200 rounded-lg static sm:mr-10 p-10 flex flex-col justify-start relative">
                 <div class="flex flex-wrap -m-2">
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="pname" class="leading-7 text-sm text-gray-600">Paper Name</label>
-                            <input type="text" id="pname" name="pname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Title; ?>" readonly>
+                            <input type="text" id="pname" name="pname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $row['paper_name']; ?>" required>
                         </div>
                     </div>
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="aname" class="leading-7 text-sm text-gray-600">Author's Name</label>
-                            <input type="text" id="aname" name="aname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo implode(", ", $authors); ?>" readonly>
+                            <input type="text" id="aname" name="aname" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $row['paper_author']; ?>" required>
                         </div>
                     </div>
 
                     <div class="p-2 lg:w-full w-full">
                         <div class="relative">
                             <label for="publisher" class="leading-7 text-sm text-gray-600">Publisher</label>
-                            <input type="hidden" id="pubin" name="pubin" value="<?php echo $res->PublishedIn; ?>">
-                            <input type="text" id="publisher" name="publisher" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Publisher; ?>" readonly>
+                            <input type="hidden" id="pubin" name="pubin" value="<?php echo $row['paper_published_in']; ?>">
+                            <input type="text" id="publisher" name="publisher" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $row['paper_publisher']; ?>" readonly>
                         </div>
                     </div>
 
-                    <div class="p-2 lg:w-1/4 w-full">
+                    <div class="p-2 lg:w-1/2 w-full">
                         <div class="relative">
                             <label for="pyear" class="leading-7 text-sm text-gray-600">Year of Publication</label>
-                            <input type="text" id="pyear" name="pyear" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $res->Month . ' ' . $res->Year; ?>" readonly>
+                            <input type="text" id="pyear" name="pyear" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $row['paper_yr']; ?>" required>
                         </div>
                     </div>
 
                     <div class="p-2 lg:w-1/2 w-full">
                         <div class="relative">
                             <label for="pdoi" class="leading-7 text-sm text-gray-600">DOI</label>
-                            <input type="text" id="pdoi" name="pdoi" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $doi; ?>" readonly>
-                        </div>
-                    </div>
-
-                    <div class="p-2 lg:w-1/4 w-full">
-                        <div class="relative">
-                            <label for="purl" class="leading-7 text-sm text-gray-600">Paper URL</label>
-                            <input type="hidden" id="purl" name="purl" value="<?php echo $res->PaperURL; ?>">
-                            <a type="button" class="text-black text-base bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg" name="purl" id="purl" href="<?php echo $res->PaperURL; ?>" target="_blank">External URL</a>
+                            <input type="text" id="pdoi" name="pdoi" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $row['paper_doi']; ?>" readonly>
                         </div>
                     </div>
 
@@ -118,28 +99,15 @@ $doi = $_GET['DOI'];
                         <div class="relative">
                             <label for="upaper" class="leading-7 text-sm text-gray-600">Paper Link</label>
                             <label for="upaper" class="leading-7 text-xs text-gray-600">(** Only Drive Link of the paper)</label>
-                            <input type="text" id="upaper" name="upaper" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="upaper" name="upaper" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $row['paper_drive_url']; ?>">
                         </div>
                     </div>
+
                     <div class="p-2 lg:w-1/2 w-full">
-                        <div class="relative flex flex-col">
-                            <label for="psec" class="leading-7 text-sm text-gray-600">Select Section</label>
-                            <select id="psec" name="psec" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-3 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
-                                <?php
-                                include '../php-src/db/db_connect.php';
-                                $uemail = $_SESSION['uemail'];
-                                $sql = "SELECT `sec_name` FROM `section` WHERE `uemail` = '$uemail'";
-                                $res = mysqli_query($con, $sql);
-                                $numRows = mysqli_num_rows($res);
-
-
-                                if ($numRows > 0) {
-                                    while ($row = mysqli_fetch_assoc($res)) {
-                                        echo '<option value="' . $row['sec_name'] . '">' . $row['sec_name'] . '</option>';
-                                    }
-                                }
-                                ?>
-                            </select>
+                        <div class="relative">
+                            <label for="psec" class="leading-7 text-sm text-gray-600">Section</label>
+                            <label for="psec" class="leading-7 text-xs text-gray-600">(** To change section move paper)</label>
+                            <input type="text" id="psec" name="psec" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-sm outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="<?php echo $row['paper_sec']; ?>" readonly>
                         </div>
                     </div>
                 </div>
@@ -148,12 +116,12 @@ $doi = $_GET['DOI'];
                 <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Summary</h2>
                 <div class="relative mb-4">
                     <label for="rangeValue" class="leading-7 text-sm text-gray-600">User Paper Rating</label>
-                    <span id="rangeValue" name="rangeValue" class="font-bold lg:text-lg text-sm">3</span>
-                    <input class="range" id="rating" name="rating" type="range" value="3" min="1" max="5" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)" required>
+                    <span id="rangeValue" name="rangeValue" class="font-bold lg:text-lg text-sm"><?php echo (int)$row['paper_user_rating']; ?></span>
+                    <input class="range" id="rating" name="rating" type="range" value="<?php echo (int)$row['paper_user_rating']; ?>" min="1" max="5" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)" required>
                 </div>
                 <div class="relative mb-4">
                     <label for="summary" class="leading-7 text-sm text-gray-600">Your Summary</label>
-                    <textarea id="summary" name="summary" class="w-full bg-white rounded border border-gray-300 lg:h-52 h-40 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" rows="5" cols="55" maxlength="3000" required></textarea>
+                    <textarea id="summary" name="summary" class="w-full bg-white rounded border border-gray-300 lg:h-52 h-40 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" rows="5" cols="55" maxlength="3000" required><?php echo $row['paper_user_summary']; ?></textarea>
                     <div id="counter" class="text-right text-xs"></div>
                 </div>
                 <button class="text-black font-bold bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-700 rounded text-lg">Summarize</button>
