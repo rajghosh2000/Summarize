@@ -47,7 +47,7 @@ $row = mysqli_fetch_assoc($res);
             <a class="mr-5 text-green-600 hover:text-gray-900 font-semibold" href="#">
                 <?php
                 if (isset($_SESSION['signedIn']) && $_SESSION['signedIn'] == true) {
-                    echo $_SESSION['uemail'];
+                    echo $_SESSION['uname'];
                 }
                 ?>
             </a>

@@ -178,7 +178,7 @@ switch ($row['sec_icon']) {
             <a class="mr-5 text-green-600 hover:text-gray-900 font-semibold" href="#">
                 <?php
                 if (isset($_SESSION['signedIn']) && $_SESSION['signedIn'] == true) {
-                    echo $_SESSION['uemail'];
+                    echo $_SESSION['uname'];
                 }
                 ?>
             </a>
@@ -275,9 +275,6 @@ switch ($row['sec_icon']) {
                                     <img class="lg:w-2/6 md:w-3/6 w-5/6 object-contain object-center rounded h-72" alt="hero" src="../img/no-data.png">
                                     <div class="text-center lg:w-2/3 w-full">
                                         <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">NO DATA YET!!! ADD THE FIRST SECTION HERE</h1>
-                                    <div class="flex justify-center">
-                                        <a type="button" class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" href="section.html?user=' . $_SESSION['uemail'] . '">New Section</a>
-                                    </div>
                                 </div>
                             ';
             }

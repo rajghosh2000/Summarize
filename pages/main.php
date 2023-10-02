@@ -17,6 +17,7 @@ if (!isset($_SESSION['signedIn'])) {
     <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
 </head>
 <style>
     <?php include "../css/style.css" ?>
@@ -78,7 +79,7 @@ if (!isset($_SESSION['signedIn'])) {
                     <div class="progress active"></div>
                 </div>
             ';
-    }elseif(isset($_GET['info']) && $_GET['info'] == 'Exists'){
+    } elseif (isset($_GET['info']) && $_GET['info'] == 'Exists') {
         // Handle Paper Exists
         echo '
                 <div class="toast active">
@@ -93,7 +94,7 @@ if (!isset($_SESSION['signedIn'])) {
                     <div class="progresses active"></div>
                 </div>
             ';
-    }elseif(isset($_GET['info']) && $_GET['info'] == 'AddedSec'){
+    } elseif (isset($_GET['info']) && $_GET['info'] == 'AddedSec') {
         // Handle Add Dection Success
         echo '
             <div class="toast active">
@@ -108,7 +109,37 @@ if (!isset($_SESSION['signedIn'])) {
                 <div class="progress active"></div>
             </div>
             ';
-    }elseif(isset($_GET['info']) && $_GET['info'] == 'ExistsSec'){
+    } elseif (isset($_GET['info']) && $_GET['info'] == 'SecUpdated') {
+        // Handle Add Dection Success
+        echo '
+            <div class="toast active">
+                <div class="toast-content">
+                    <i class="fas fa-solid fa-check check"></i>
+                    <div class="message">
+                        <span class="text text-1">Success</span>
+                        <span class="text text-2">Section Updated Successfully</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progress active"></div>
+            </div>
+            ';
+    } elseif (isset($_GET['info']) && $_GET['info'] == 'SectionDel') {
+        // Handle Add Dection Success
+        echo '
+            <div class="toast active">
+                <div class="toast-content">
+                    <i class="fas fa-solid fa-check check"></i>
+                    <div class="message">
+                        <span class="text text-1">Success</span>
+                        <span class="text text-2">Section Deleted Successfully</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progress active"></div>
+            </div>
+            ';
+    } elseif (isset($_GET['info']) && $_GET['info'] == 'ExistsSec') {
         // Handle Section Exists
         echo '
                 <div class="toast active">
@@ -123,7 +154,7 @@ if (!isset($_SESSION['signedIn'])) {
                     <div class="progresses active"></div>
                 </div>
             ';
-    }elseif(isset($_GET['info']) && $_GET['info'] == 'ServerErr'){
+    } elseif (isset($_GET['info']) && $_GET['info'] == 'ServerErr') {
         // Handle Server Error
         echo '
                 <div class="toast active">
@@ -142,7 +173,7 @@ if (!isset($_SESSION['signedIn'])) {
     }
 
     ?>
-   
+
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap flex-col p-2 md:flex-row items-center">
             <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="main.php">
@@ -156,7 +187,7 @@ if (!isset($_SESSION['signedIn'])) {
             <a class="mr-5 text-green-600 hover:text-gray-900 font-semibold" href="#">
                 <?php
                 if (isset($_SESSION['signedIn']) && $_SESSION['signedIn'] == true) {
-                    echo $_SESSION['uemail'];
+                    echo $_SESSION['uname'];
                 }
                 ?>
             </a>
@@ -172,7 +203,7 @@ if (!isset($_SESSION['signedIn'])) {
                     <h1 class="sm:text-3xl text-2xl font-bold title-font font-mono mb-2 text-gray-900">My Network</h1>
                 </div>
                 <?php
-                echo '<a type="button" class="lg:w-1/10 flex mx-auto text-black bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg font-bold title-font font-mono shadow-2xl" href="section.html?user=' . $_SESSION['uemail'] . '">
+                echo '<a type="button" class="lg:w-1/10 flex mx-auto text-black bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg font-bold title-font font-mono shadow-2xl" href="section.php">
                     <i class="fa fa-fan text-md text-black px-2 py-1 animate-spin"></i>
                     New Section
                 </a>';
@@ -180,6 +211,7 @@ if (!isset($_SESSION['signedIn'])) {
             </div>
         </div>
     </section>
+
     <section class="text-gray-600 body-font overflow-auto font-mono">
         <div class="container px-5 py-5 mx-auto">
             <?php
@@ -228,7 +260,6 @@ if (!isset($_SESSION['signedIn'])) {
                                     <div class="flex flex-col">
                                         <h2 class="text-gray-900 text-lg title-font font-bold">' . $row['sec_name'] . '</h2>
                                         <h2 class="text-gray-900 text-xs">Section : ' . $row['sec_icon'] . '</h2>
-                                        
                                     </div>
                                 </div>
                                 <div class="flex-grow">';
@@ -239,19 +270,27 @@ if (!isset($_SESSION['signedIn'])) {
                     }
 
                     $sec_name = $row['sec_name'];
+                    $secNo = $row['sno'];
+                    $sec_no = $row['sno'] . ' ' . $sec_name;
                     $sql_inner = "SELECT * FROM `paper` WHERE `email` = '$uemail' AND `paper_sec` = '$sec_name' ;";
                     $res_inner = mysqli_query($con, $sql_inner);
                     $numRows_inner = mysqli_num_rows($res_inner);
 
                     echo '
-                    <h2 class="text-gray-900 text-xs">Paper Count : ' . $numRows_inner . '</h2>
-                                        
+                                        <h2 class="text-gray-900 text-xs">Paper Count : ' . $numRows_inner . '</h2>
+                                    </div>
+                                    <div class="flex">
                                         <a class="mt-3 text-green-500 inline-flex items-center hover:text-green-900 font-semibold" href="threads.php?section=' . $sec_name . '">Explore
                                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
                                             </svg>
                                         </a>
-                                        
+                                        <a class="flex ml-auto mt-3 text-blue-700 items-center hover:text-blue-900 font-bold" href="section.php?secID=' . $secNo . '&method=edit">
+                                                <i class="fa-solid fa-pencil text-base m-2"></i>
+                                        </a>
+                                        <a class="cd-popup-triggerr inline-flex ml-2 mt-3 text-red-700 flex items-center hover:text-red-900 font-bold" href="#delete-' . $sec_no . '" data-sec-no="' . $sec_no . '">
+                                            <i class="fa-regular fa-trash-can text-base m-2"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -265,12 +304,32 @@ if (!isset($_SESSION['signedIn'])) {
                             <div class="text-center lg:w-2/3 w-full">
                                 <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">NO DATA YET!!! ADD THE FIRST SECTION HERE</h1>
                             <div class="flex justify-center">
-                                <a type="button" class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" href="section.html?user=' . $_SESSION['uemail'] . '">New Section</a>
+                                <a type="button" class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" href="section.php">New Section</a>
                             </div>
                         </div>
                     ';
             }
             ?>
+
+            <!-- DELETE ALERT STARTS HERE -->
+            <div class="cd-popup" role="alert">
+                <form class="cd-popup-container" method="post" action="../php-src/modifySection.php?method=del">
+                    <i class="fa-solid fa-trash-can text-2xl m-2"></i>
+                    <p>Are you sure you want to delete this section?</p>
+                    <div class="w-full flex flex-row my-2 mx-auto">
+                        <p>Section : </p>
+                        <input type="text" class="text-black font-bold text-lg" id="del-sec" name="del-sec" />
+                    </div>
+                    <input type="hidden" id="del-val" name="del-val">
+                    <div class="w-full flex flex-row my-2">
+                        <button class="text-black font-semibold bg-red-400 border py-2 px-8 focus:outline-none hover:bg-red-500 rounded text-lg w-1/2 my-2 mx-2">DELETE</button>
+                        <button class="cd-popup-no text-black font-semibold bg-gray-400 border py-2 px-8 focus:outline-none hover:bg-gray-500 rounded text-lg w-1/2 my-2 mx-2">CANCEL</button>
+                    </div>
+                    <a href="#delete" class="cd-popup-close img-replace"></a>
+                </form>
+            </div>
+            <!-- ENDS HERE -->
+
         </div>
     </section>
 
@@ -352,12 +411,47 @@ if (!isset($_SESSION['signedIn'])) {
         clearTimeout(timer2);
     });
 </script>
-<!-- <div class="flex flex-row">
-                                            <a href="" class="text-red-600 p-2">
-                                                <i class="fa-solid fa-trash-can text-base w-2 h-2"></i>
-                                            </a>
-                                            <a href="" class="text-red-600 p-2">
-                                                <i class="fa-solid fa-trash-can text-base w-2 h-2"></i>
-                                            </a>
-                                        </div> -->
+<script>
+    jQuery(document).ready(function($) {
+        //open popup
+        $('.cd-popup-triggerr').on('click', function(event) {
+            event.preventDefault();
+            var secNo = $(this).data('sec-no'); // Retrieve the sec_no value from the clicked trigger
+            var indexOfSpace = secNo.indexOf(' ');
+
+            if (indexOfSpace !== -1) {
+                var sectionNumber = secNo.substring(0, indexOfSpace);
+                var sectionName = secNo.substring(indexOfSpace + 1);
+            }
+
+            $('.cd-popup').addClass('is-visible');
+            $('#del-val').val(sectionNumber);
+            $('#del-sec').val(sectionName);
+        });
+
+        //close popup
+        $('.cd-popup').on('click', function(event) {
+            if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup')) {
+                event.preventDefault();
+                $(this).removeClass('is-visible');
+            }
+        });
+
+        //close popup using NO button
+        $('.cd-popup').on('click', function(event) {
+            if ($(event.target).is('.cd-popup-no') || $(event.target).is('.cd-popup')) {
+                event.preventDefault();
+                $(this).removeClass('is-visible');
+            }
+        });
+
+        //close popup when clicking the esc keyboard button
+        $(document).keyup(function(event) {
+            if (event.which == '27') {
+                $('.cd-popup').removeClass('is-visible');
+            }
+        });
+    });
+</script>
+
 </html>

@@ -59,7 +59,7 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
             <a class="mr-5 text-green-600 hover:text-gray-900 font-semibold" href="#">
                 <?php
                 if (isset($_SESSION['signedIn']) && $_SESSION['signedIn'] == true) {
-                    echo $_SESSION['uemail'];
+                    echo $_SESSION['uname'];
                 }
                 ?>
             </a>
@@ -201,7 +201,7 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
                 <div class="cd-popup" role="alert">
                     <div class="cd-popup-container">
                         <i class="fa-solid fa-trash-can text-2xl m-2"></i>
-                        <p>Are you sure you want to delete this element?</p>
+                        <p>Are you sure you want to delete this paper?</p>
                         <ul class="cd-buttons">
                             <li><a href="../php-src/modifyPaper.php?sno=<?php echo $paperID; ?>&method=del">Yes</a></li>
                             <li><a href="#delete" class="cd-popup-no">No</a></li>
