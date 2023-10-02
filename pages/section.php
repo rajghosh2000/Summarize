@@ -118,9 +118,9 @@ $sectionsICON = array(
                                     </div>
 
                                     <div class="flex flex-col ml-6 my-2 w-full">
-                                        <button class="flex mx-auto text-black font-bold bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">
+                                        <button class="flex mx-auto text-black font-bold bg-green-500 border-2 border-green-700 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">
                                             <i class="fa fa-fan text-md text-black px-2 py-1 animate-spin"></i>
-                                            Create Section
+                                            Update Section
                                         </button>
                                     </div>
                                 </form>
@@ -164,7 +164,7 @@ $sectionsICON = array(
                             </div>
 
                             <div class="flex flex-col ml-6 my-2 w-full">
-                                <button class="flex mx-auto text-black font-bold bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">
+                                <button class="flex mx-auto text-black font-bold bg-green-500 border-2 border-green-700 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">
                                     <i class="fa fa-fan text-md text-black px-2 py-1 animate-spin"></i>
                                     Create Section
                                 </button>

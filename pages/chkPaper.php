@@ -129,7 +129,7 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
                     </a>
                 <?php } else { ?>
                     <a type="button" title="Paper Drive Link Uploaded By User" class="bg-green-400 text-black inline-flex py-3 px-5 rounded-lg items-center hover:bg-green-500 focus:outline-none my-2 border-2 border-green-700" href="<?php echo $row['paper_drive_url']; ?>">
-                        <i class="fa-solid fa-link text-2xl"></i>
+                        <i class="fa-solid fa-link text-2xl fa-beat"></i>
                         <span class="ml-4 flex items-start flex-col leading-none">
                             <span class="title-font font-medium">PAPER DRIVE LINK</span>
                         </span>
@@ -137,13 +137,13 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
                 <?php } ?>
 
                 <a type="button" title="Edit your Paper" class="bg-green-400 text-black inline-flex py-3 px-5 rounded-lg items-center hover:bg-green-500 focus:outline-none my-2 border-2 border-green-700" href="editPaper.php?sno=<?php echo $paperID; ?>">
-                    <i class="fa-solid fa-pen-fancy text-2xl"></i>
+                    <i class="fa-solid fa-pen-fancy text-2xl fa-beat"></i>
                     <span class="ml-4 flex items-start flex-col leading-none">
                         <span class="title-font font-medium">EDIT PAPER</span>
                     </span>
                 </a>
                 <a type="button" title="Move Paper to Different Section" class="cd-popup-triggeer bg-green-400 text-black inline-flex py-3 px-5 rounded-lg items-center hover:bg-green-500 focus:outline-none my-2 border-2 border-green-700" href="#move">
-                    <i class="fa-solid fa-angles-right text-2xl"></i>
+                    <i class="fa-solid fa-angles-right text-2xl fa-beat"></i>
                     <span class="ml-4 flex items-start flex-col leading-none">
                         <span class="title-font font-medium">MOVE PAPER</span>
                     </span>
@@ -192,7 +192,7 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
 
 
                 <a type="button" title="Delete Paper" class="cd-popup-triggerr bg-green-400 text-black inline-flex py-3 px-5 rounded-lg items-center hover:bg-green-500 focus:outline-none my-2 border-2 border-green-700" href="#delete">
-                    <i class="fa-solid fa-trash-can text-2xl"></i>
+                    <i class="fa-solid fa-trash-can text-2xl fa-beat"></i>
                     <span class="ml-4 flex items-start flex-col leading-none">
                         <span class="title-font font-medium">DELETE PAPER</span>
                     </span>

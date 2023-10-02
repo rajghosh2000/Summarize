@@ -202,12 +202,10 @@ if (!isset($_SESSION['signedIn'])) {
                 <div class="lg:w-5/6 w-full lg:mb-0 text-center">
                     <h1 class="sm:text-3xl text-2xl font-bold title-font font-mono mb-2 text-gray-900">My Network</h1>
                 </div>
-                <?php
-                echo '<a type="button" class="lg:w-1/10 flex mx-auto text-black bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg font-bold title-font font-mono shadow-2xl" href="section.php">
+                <a type="button" class="lg:w-1/10 flex mx-auto text-black bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg font-bold title-font font-mono shadow-2xl" href="section.php">
                     <i class="fa fa-fan text-md text-black px-2 py-1 animate-spin"></i>
                     New Section
-                </a>';
-                ?>
+                </a>
             </div>
         </div>
     </section>
@@ -303,6 +301,7 @@ if (!isset($_SESSION['signedIn'])) {
                             <img class="lg:w-2/6 md:w-3/6 w-5/6 object-contain object-center rounded h-72" alt="hero" src="../img/no-data.png">
                             <div class="text-center lg:w-2/3 w-full">
                                 <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">NO DATA YET!!! ADD THE FIRST SECTION HERE</h1>
+                            </div>
                             <div class="flex justify-center">
                                 <a type="button" class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" href="section.php">New Section</a>
                             </div>
@@ -317,8 +316,8 @@ if (!isset($_SESSION['signedIn'])) {
                     <i class="fa-solid fa-trash-can text-2xl m-2"></i>
                     <p>Are you sure you want to delete this section?</p>
                     <div class="w-full flex flex-row my-2 mx-auto">
-                        <p>Section : </p>
-                        <input type="text" class="text-black font-bold text-lg" id="del-sec" name="del-sec" />
+                        <p class="text-sm w-1/3">Section : </p>
+                        <input type="text" class="text-black font-bold text-sm w-2/3 outline-none border-none" id="del-sec" name="del-sec" readonly />
                     </div>
                     <input type="hidden" id="del-val" name="del-val">
                     <div class="w-full flex flex-row my-2">
@@ -331,11 +330,7 @@ if (!isset($_SESSION['signedIn'])) {
             <!-- ENDS HERE -->
 
         </div>
-    </section>
-
-    <a href="paper.php" title="Add New Paper" class="fixed z-90 bottom-14 right-8 bg-transperant w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl lg:hover:bg-green-400 md:hover:bg-green-400 hover:drop-shadow-2xl hover:animate-bounce duration-300">
-        <img src="../img/plus.png" class="h-16 w-16" />
-    </a>
+    </section>    
 
     <footer class="text-gray-600 body-font">
         <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
