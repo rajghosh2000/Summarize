@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 session_start();
 if (!isset($_SESSION['signedIn'])) {
@@ -18,6 +16,8 @@ $row = mysqli_fetch_assoc($res);
 $timestamp = $row['paper_timestamp'];
 $formattedDate = date("d-m-Y", strtotime($timestamp));
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -77,8 +77,8 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
             <div class="flex flex-col lg:flex-row -m-4 h-auto lg:h-96">
                 <div class="p-4 lg:w-1/2">
                     <div class="h-full p-2 rounded-lg border-2 border-green-300 flex flex-col relative overflow-hidden">
-                        <?php if((int)$row['p_updated'] == 1){?>
-                        <span class="bg-green-500 px-3 py-1 tracking-widest text-xs absolute right-0 bottom-0 rounded-tl text-black">LAST EDITED ON : <?php echo $timestamp; ?></span>
+                        <?php if ((int)$row['p_updated'] == 1) { ?>
+                            <span class="bg-green-500 px-3 py-1 tracking-widest text-xs absolute right-0 bottom-0 rounded-tl text-black">LAST EDITED ON : <?php echo $timestamp; ?></span>
                         <?php } ?>
                         <h2 class="text-base tracking-widest title-font mb-1 font-medium">DOI</h2>
                         <h1 class="text-base font-bold pb-4 mb-2 border-b border-gray-200 leading-none"><?php echo $row['paper_doi']; ?></h1>
@@ -128,7 +128,7 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
                         </span>
                     </a>
                 <?php } else { ?>
-                    <a type="button" title="Paper Drive Link Uploaded By User" class="bg-green-400 text-black inline-flex py-3 px-5 rounded-lg items-center hover:bg-green-500 focus:outline-none my-2 border-2 border-green-700" href="<?php echo $row['paper_drive_url']; ?>">
+                    <a type="button" title="Paper Drive Link Uploaded By User" class="bg-green-400 text-black inline-flex py-3 px-5 rounded-lg items-center hover:bg-green-500 focus:outline-none my-2 border-2 border-green-700" href="<?php echo $row['paper_drive_url']; ?>" target="_blank">
                         <i class="fa-solid fa-link text-2xl fa-beat"></i>
                         <span class="ml-4 flex items-start flex-col leading-none">
                             <span class="title-font font-medium">PAPER DRIVE LINK</span>
@@ -157,16 +157,27 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
                         <div class="flex ml-6 items-center">
                             <span class="mr-3">Section</span>
                             <div class="relative">
-                                <select id="psecID" name="psecID" class="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-green-500 text-base pl-3 my-2 pr-10 w-full font-bold text-black shadow-2xl">
+                                <?php
+                                include '../php-src/db/db_connect.php';
+                                $uemail = $_SESSION['uemail'];
+                                $sqlSEC = "SELECT * FROM `section` WHERE `uemail` = '$uemail'";
+                                $resSEC = mysqli_query($con, $sqlSEC);
+                                $numRowsSEC = mysqli_num_rows($resSEC);
+
+
+                                if ($numRowsSEC > 0) {
+                                    if ($numRowsSEC == 1) {
+                                        echo '<p class="font-bold text-black">No Other Section Available</p>';
+                                        echo '
+                                            </div>
+                                        </div>
+                                        <button class="text-black font-semibold bg-gray-400 border py-2 px-8 focus:outline-none hover:bg-gray-500 rounded text-lg w-full mt-2" disabled>MOVE NOT POSSIBLE</button>
+                                        <a href="#move" class="cd-popup-close img-replace"></a>                                        
+                                        ';
+                                    } else {
+                                ?>
+                                        <select id="psecID" name="psecID" class="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-green-500 text-base pl-3 my-2 pr-10 w-full font-bold text-black shadow-2xl">
                                     <?php
-                                    include '../php-src/db/db_connect.php';
-                                    $uemail = $_SESSION['uemail'];
-                                    $sqlSEC = "SELECT * FROM `section` WHERE `uemail` = '$uemail'";
-                                    $resSEC = mysqli_query($con, $sqlSEC);
-                                    $numRowsSEC = mysqli_num_rows($resSEC);
-
-
-                                    if ($numRowsSEC > 0) {
                                         while ($rowSEC = mysqli_fetch_assoc($resSEC)) {
                                             if ($rowSEC['sec_name'] == $row['paper_sec']) {
                                                 continue;
@@ -174,25 +185,28 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
                                                 echo '<option value="' . $rowSEC['sno'] . '">' . $rowSEC['sec_name'] . '</option>';
                                             }
                                         }
+                                        echo '</select>';
+                                        echo '
+                                                    <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 font-bold text-black" viewBox="0 0 24 24">
+                                                            <path d="M6 9l6 6 6-6"></path>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <button class="text-black font-semibold bg-green-400 border py-2 px-8 focus:outline-none hover:bg-green-500 rounded text-lg w-full mt-2" disabled>MOVE PAPER</button>
+                                            <a href="#move" class="cd-popup-close img-replace"></a>  
+                                        ';
                                     }
+                                }
 
                                     ?>
-                                </select>
-                                <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 font-bold text-black" viewBox="0 0 24 24">
-                                        <path d="M6 9l6 6 6-6"></path>
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-                        <button class="text-black font-semibold bg-green-400 border py-2 px-8 focus:outline-none hover:bg-green-500 rounded text-lg w-full mt-2">MOVE PAPER</button>
-                        <a href="#move" class="cd-popup-close img-replace"></a>
                     </form>
                 </div>
 
 
                 <a type="button" title="Delete Paper" class="cd-popup-triggerr bg-green-400 text-black inline-flex py-3 px-5 rounded-lg items-center hover:bg-green-500 focus:outline-none my-2 border-2 border-green-700" href="#delete">
-                    <i class="fa-solid fa-trash-can text-2xl fa-beat"></i>
+                    <i class="fa-solid fa-trash-can text-2xl"></i>
                     <span class="ml-4 flex items-start flex-col leading-none">
                         <span class="title-font font-medium">DELETE PAPER</span>
                     </span>

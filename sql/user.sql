@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2023 at 07:22 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Oct 02, 2023 at 06:17 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,13 +35,6 @@ CREATE TABLE `user` (
   `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
   `country` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`name`, `dob`, `email`, `password`, `timestamp`, `country`) VALUES
-('Rajdeep Ghosh', '2000-07-25', 'rajghosh2507@gmail.com', '$2y$10$Ik7U31lZjJzzyRDP0nJ7Xef4433yUHnaohnJlLtj1jbQFh0G6P1YS', '2023-06-09 22:51:43', 'India');
 
 --
 -- Indexes for dumped tables

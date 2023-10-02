@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2023 at 07:26 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Oct 02, 2023 at 06:17 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,13 +37,6 @@ CREATE TABLE `section` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `section`
---
-
-INSERT INTO `section` (`sno`, `uemail`, `sec_name`, `sec_info`, `sec_icon`, `sec_timestamp`) VALUES
-(1, 'rajghosh2507@gmail.com', 'Cloud Computing', 'This is about cloud computing.', 'Technology', '2023-06-09 22:55:37');
-
---
 -- Indexes for dumped tables
 --
 
@@ -51,7 +44,9 @@ INSERT INTO `section` (`sno`, `uemail`, `sec_name`, `sec_info`, `sec_icon`, `sec
 -- Indexes for table `section`
 --
 ALTER TABLE `section`
-  ADD PRIMARY KEY (`sno`);
+  ADD PRIMARY KEY (`sno`),
+  ADD UNIQUE KEY `sec_name` (`sec_name`),
+  ADD KEY `uemail` (`uemail`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -61,7 +56,17 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `section`
+--
+ALTER TABLE `section`
+  ADD CONSTRAINT `section_ibfk_1` FOREIGN KEY (`uemail`) REFERENCES `user` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

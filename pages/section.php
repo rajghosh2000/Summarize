@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 session_start();
 if (!isset($_SESSION['signedIn'])) {
@@ -19,6 +17,8 @@ $sectionsICON = array(
     'Others' => '&#xf2dc; - Others'
 );
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">

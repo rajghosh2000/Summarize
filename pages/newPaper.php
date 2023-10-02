@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <?php
 include('../api/paperSearchApi.php');
 
@@ -11,6 +8,8 @@ if (!isset($_SESSION['signedIn'])) {
 }
 $doi = $_GET['DOI'];
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">

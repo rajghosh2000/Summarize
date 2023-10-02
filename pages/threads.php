@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 session_start();
 if (!isset($_SESSION['signedIn'])) {
@@ -42,6 +40,8 @@ switch ($row['sec_icon']) {
 }
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">

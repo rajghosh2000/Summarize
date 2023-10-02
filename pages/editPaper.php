@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <?php
 session_start();
 if (!isset($_SESSION['signedIn'])) {
@@ -16,6 +13,9 @@ $res = mysqli_query($con, $sql);
 $row = mysqli_fetch_assoc($res);
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
