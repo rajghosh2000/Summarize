@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['signedIn'])) {
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
 }
 ?>
@@ -183,7 +183,7 @@ if (!isset($_SESSION['signedIn'])) {
                 <a class="mr-5 hover:text-gray-900 font-semibold">About</a>
                 <a class="mr-5 hover:text-gray-900 font-semibold">Contact Us</a>
             </nav>
-            <a class="mr-5 text-green-600 hover:text-gray-900 font-semibold" href="#">
+            <a class="mr-5 text-green-600 hover:text-gray-900 font-semibold" href="account.php">
                 <?php
                 if (isset($_SESSION['signedIn']) && $_SESSION['signedIn'] == true) {
                     echo $_SESSION['uname'];

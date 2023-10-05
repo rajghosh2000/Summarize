@@ -1,5 +1,5 @@
 <?php
-$showErr = "false";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'db/db_connect.php';
 
@@ -20,12 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../pages/main.php?user=True&login=success");
             exit();
         } else {
-            echo "Unable to log in ";
-            $showErr = "UnableToLogIn";
+            header("Location: ../index.php?login=false");
+            exit();
         }
     } else {
-        $showErr = "No field found";
+        header("Location: ../index.php?login=noUsr");
+        exit();
     }
-    header("Location: ../index.html");
-    exit();
 }

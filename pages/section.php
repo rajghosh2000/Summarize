@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['signedIn'])) {
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
 }
 include '../php-src/db/db_connect.php';

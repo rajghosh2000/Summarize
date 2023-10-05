@@ -21,7 +21,7 @@
 <body class="flex flex-col h-screen justify-between">
     <nav class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap flex-col p-4 md:flex-row items-center">
-            <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="../index.html">
+            <a class="flex title-font font-medium items-center text-gray-900 md:mb-0" href="../index.php">
                 <img class="bg-none h-20 w-48" src="../img/logo.png">
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
@@ -30,12 +30,12 @@
             </nav>
             <button
                 class="inline-flex items-center bg-green-600 border-0 py-1 px-3 focus:outline-none hover:bg-green-900 rounded text-base text-white font-semibold mt-4 md:mt-0"
-                onclick="window.location.href='reg.html'">Get
+                onclick="window.location.href='reg.php'">Get
                 Registered
             </button>
             <button
                 class="inline-flex items-center bg-green-600 border-0 py-1 px-3 focus:outline-none hover:bg-green-900 rounded text-base text-white font-semibold mt-4 mx-2 md:mt-0"
-                onclick="window.location.href='login.html'">Login
+                onclick="window.location.href='login.php'">Login
             </button>
         </div>
     </nav>
@@ -46,7 +46,7 @@
                 <img class="object-cover object-center rounded mx-1" alt="hero" src="../img/logIn.png">
             </div>
             <form class="lg:w-1/2 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0"
-                action="../php-src/sign-in.php" method="post">
+                action="../php-src/_sign-in.php" method="post">
                 <h2 class="text-gray-900 text-2xl mb-3 font-bold title-font text-center">Login</h2>
                 <div class="relative mb-4">
                     <div class="relative">

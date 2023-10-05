@@ -3,7 +3,7 @@ include('../api/paperSearchApi.php');
 
 session_start();
 if (!isset($_SESSION['signedIn'])) {
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
 }
 $doi = $_GET['DOI'];
