@@ -52,7 +52,7 @@ $row = mysqli_fetch_assoc($res_chk);
         </div>
     </header>
 
-    <section class="text-gray-600 body-font overflow-auto">
+    <section class="text-gray-600 body-font xl:overflow-hidden lg:overflow-hidden overflow-auto">
         <div class="container px-5 py-2 mx-auto">
             <div class="flex flex-col text-center w-full mb-2">
                 <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Your Account</h1>

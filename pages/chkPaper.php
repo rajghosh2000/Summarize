@@ -106,7 +106,6 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
         <div class="container px-5 py-2 mx-auto flex items-center md:flex-row flex-col">
             <div class="flex flex-col md:pr-10 md:mb-0 mb-6 pr-0 w-full md:w-auto md:text-left text-center">
                 <h2 class="text-xs text-green-800 tracking-widest font-medium title-font mb-2">Your Rating</h2>
-
                 <span class="star-rating text-2xl">
                     <?php
                     $paper_user_rating = (int)$row['paper_user_rating'];
@@ -194,7 +193,7 @@ $formattedDate = date("d-m-Y", strtotime($timestamp));
                                                     </span>
                                                 </div>
                                             </div>
-                                            <button class="text-black font-semibold bg-green-400 border py-2 px-8 focus:outline-none hover:bg-green-500 rounded text-lg w-full mt-2" disabled>MOVE PAPER</button>
+                                            <button class="text-black font-semibold bg-green-400 border py-2 px-8 focus:outline-none hover:bg-green-500 rounded text-lg w-full mt-2">MOVE PAPER</button>
                                             <a href="#move" class="cd-popup-close img-replace"></a>  
                                         ';
                                     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2023 at 06:17 PM
+-- Generation Time: Dec 13, 2023 at 07:21 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -40,10 +40,18 @@ CREATE TABLE `paper` (
   `paper_drive_url` varchar(1000) NOT NULL,
   `paper_sec` varchar(100) NOT NULL,
   `paper_user_rating` text NOT NULL,
-  `paper_user_summary` mediumtext NOT NULL,
+  `paper_user_summary` longtext NOT NULL,
   `paper_timestamp` datetime NOT NULL DEFAULT current_timestamp(),
   `p_updated` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `paper`
+--
+
+INSERT INTO `paper` (`p_sno`, `email`, `paper_name`, `paper_author`, `paper_yr`, `paper_doi`, `paper_publisher`, `paper_published_in`, `paper_external_url`, `paper_drive_url`, `paper_sec`, `paper_user_rating`, `paper_user_summary`, `paper_timestamp`, `p_updated`) VALUES
+(28, 'rajghosh2507@gmail.com', 'Resource Aware Fog Based Remote Health Monitoring System', 'Dilwar Hussain Barbhuiya, Adittya Dey, Rajdeep Ghosh, Kunal Das, Kumarjit Ray, Nabajyoti Medhi', 'May 2022', '10.1109/infocomwkshps54753.2022.9798058', 'IEEE', 'IEEE INFOCOM 2022 - IEEE Conference on Computer Communications Workshops (INFOCOM WKSHPS)', 'http://dx.doi.org/10.1109/infocomwkshps54753.2022.9798058', '', 'Cloud Computing', '3', 'ghearyrqwerftg4', '2023-10-08 13:53:29', 0),
+(30, 'rajghosh2507@gmail.com', 'Resaerch snippets', 'P Desikan', 'October 2013', '10.1016/s0255-0857(21)00631-9', 'Elsevier BV', 'Indian Journal of Medical Microbiology', 'http://dx.doi.org/10.1016/s0255-0857(21)00631-9', '', 'Writing a Research Paper', '3', '<h1 class=\"ql-align-justify\"><strong class=\"ql-font-monospace\">TEST</strong></h1><p><em class=\"ql-font-monospace\">This</em> is a test <strong>Submit</strong> with some <s>font work</s>.</p>', '2023-12-13 23:03:53', 0);
 
 --
 -- Indexes for dumped tables
@@ -65,7 +73,7 @@ ALTER TABLE `paper`
 -- AUTO_INCREMENT for table `paper`
 --
 ALTER TABLE `paper`
-  MODIFY `p_sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `p_sno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Constraints for dumped tables

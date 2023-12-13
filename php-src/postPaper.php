@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and $_SESSION['signedIn'] == true) {
     $pdriveurl = $_POST['upaper'];
     $psec = $_POST['psec'];
     $rangeValue = $_POST['rating'];
-    $summary = $_POST['summary'];
+    $summary = $_POST['editor-content'];
 
     $uemail = $_SESSION['uemail'];
 

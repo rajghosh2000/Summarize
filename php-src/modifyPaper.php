@@ -51,7 +51,7 @@ if ($_SESSION['signedIn'] == true) {
                 $pdriveurl = $_POST['upaper'];
                 $psec = $_POST['psec'];
                 $rangeValue = $_POST['rating'];
-                $summary = $_POST['summary'];
+                $summary = $_POST['editor-content'];
                 $paper_updated = 1;
                 
                 $sql = "UPDATE `paper` SET `paper_name`='$pname',`paper_author`='$aname',`paper_yr`='$pyear',`paper_doi`='$pdoi',`paper_publisher`='$publisher',`paper_published_in`='$publishedIn',`paper_drive_url`='$pdriveurl',`paper_sec`='$psec',`paper_user_rating`='$rangeValue',`paper_user_summary`='$summary', `paper_timestamp`= current_timestamp(), `p_updated` = '$paper_updated' WHERE email='$uemail' and p_sno='$paperID';";

@@ -7,6 +7,7 @@ if (!isset($_SESSION['signedIn'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,7 +23,7 @@ if (!isset($_SESSION['signedIn'])) {
     <?php include "../css/style.css" ?>
 </style>
 
-<body class="flex flex-col h-screen justify-between overflow-hidden">
+<body class="flex flex-col h-screen justify-between xl:overflow-hidden lg:overflow-hidden md:overflow-hidden overflow-auto font-mono">
 
 
     <?php
@@ -198,14 +199,14 @@ if (!isset($_SESSION['signedIn'])) {
     <section class="text-gray-600 body-font">
         <div class="container px-5 mx-auto">
             <div class="flex flex-wrap w-full">
-                <div class="lg:w-5/6 w-full lg:mb-0 text-center">
+                <div class="w-full lg:mb-0 text-center">
                     <h1 class="sm:text-3xl text-2xl font-bold title-font font-mono mb-2 text-gray-900">My Network</h1>
                 </div>
-                <a type="button" class="lg:w-1/10 flex mx-auto text-black bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg font-bold title-font font-mono shadow-2xl" href="section.php">
-                    <i class="fa fa-fan text-md text-black px-2 py-1 animate-spin"></i>
-                    New Section
-                </a>
             </div>
+            <a type="button" class="w-48 xl:absolute xl:right-10 xl:bottom-20 lg:absolute lg:right-10 lg:bottom-20 md:absolute md:right-10 md:bottom-20 flex mx-auto text-black bg-green-500 border-2 border-green-700 py-2 px-4 focus:outline-none hover:bg-green-700 rounded text-lg font-bold title-font font-mono shadow-2xl" href="section.php">
+                <i class="fa fa-fan text-md text-black px-2 py-1 animate-spin"></i>
+                New Section
+            </a>
         </div>
     </section>
 
@@ -223,7 +224,6 @@ if (!isset($_SESSION['signedIn'])) {
                 echo '<div class="flex flex-wrap -m-1">';
                 while ($row = mysqli_fetch_assoc($res)) {
                     echo '
-                        
                             <div class="p-6 md:w-1/3">
                                 <div class="flex rounded-lg shadow-xl h-full bg-gray-100 p-8 flex-col">
                                     <div class="flex items-center mb-3">
@@ -302,7 +302,10 @@ if (!isset($_SESSION['signedIn'])) {
                                 <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">NO DATA YET!!! ADD THE FIRST SECTION HERE</h1>
                             </div>
                             <div class="flex justify-center">
-                                <a type="button" class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" href="section.php">New Section</a>
+                                <a type="button" class="inline-flex text-black bg-green-500 border-2 border-green-700 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" href="section.php">
+                                    <i class="fa fa-fan text-md text-black px-2 py-1 animate-spin"></i>
+                                    New Section
+                                </a>
                             </div>
                         </div>
                     ';
@@ -329,7 +332,7 @@ if (!isset($_SESSION['signedIn'])) {
             <!-- ENDS HERE -->
 
         </div>
-    </section>    
+    </section>
 
     <footer class="text-gray-600 body-font">
         <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
@@ -388,14 +391,19 @@ if (!isset($_SESSION['signedIn'])) {
 
     timer1 = setTimeout(() => {
         toast.classList.remove("active");
+        toast.remove();
     }, 5000); //1s = 1000 milliseconds
 
     timer2 = setTimeout(() => {
         progress.classList.remove("active");
+        toast.remove();
     }, 5300);
 
     closeIcon.addEventListener("click", () => {
-        toast.classList.remove("active");
+
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
 
         setTimeout(() => {
             progress.classList.remove("active");

@@ -71,6 +71,7 @@
                         <div class="relative">
                             <label for="country" class="leading-7 text-lg text-gray-600 font-bold">Country</label>
                             <select class="w-full bg-white bg-opacity-50 rounded border-2 sm:flex-nowrap border-green-500 focus:border-green-700 focus:bg-white focus:ring-2 focus:ring-green-200 text-lg outline-none text-gray-700 font-semibold py-2 px-3 leading-8 transition-colors duration-200 ease-in-out" id="country" name="country" required>
+                                <option value=" ">-- select country --</option>
                                 <option value="Afghanistan">Afghanistan</option>
                                 <option value="Åland Islands">Åland Islands</option>
                                 <option value="Albania">Albania</option>
